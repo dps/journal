@@ -3,7 +3,7 @@
 
 % define page size and margins etc
 \geometry{paperwidth=15cm,paperheight=21cm,
-vmargin=2.54cm, % top and bottom margins
+vmargin=2.0cm, % top and bottom margins
 inner=1.27cm, % inside margin
 outer=2.03cm, % outside margin
 bindingoffset=0.89cm % gutter
@@ -24,13 +24,13 @@ bindingoffset=0.89cm % gutter
 
 % now make the footer the way we want it:
 % page number on right side of footer for odd pages
-\rfoot[]{\small{\textsf{\chapterauthor \hspace{0.25cm} \thepage}}}
+%\rfoot[]{\small{\textsf{\hspace{0.25cm} \thepage}}}
 \fancyhfoffset[EL]{0cm} % this looks like it doesn't do anything, but
                         % it seems to remind it to line up headers with the
                         % rest of the text
 
 % page number and chapter name on left side of footer for even pages
-\lfoot[\small{\textsf{\thepage \hspace{0.25cm} \leftmark}}]{}
+%\lfoot[\small{\textsf{\thepage \hspace{0.25cm} \leftmark}}]{}
 
 \usepackage[hang,flushmargin]{footmisc}  % To not indent footnotes
 
@@ -78,6 +78,17 @@ bindingoffset=0.89cm % gutter
 
 \raggedbottom
 \usepackage{blindtext}
+
+\usepackage{graphicx}  
+\usepackage{txfonts}  
+\usepackage{epstopdf}
+\usepackage{rotating}
+
+\usepackage{forloop}% http://ctan.org/pkg/forloop
+\newcounter{loopcntr}
+\newcommand{\rpt}[2][1]{%
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{#2}%
+}
 
 \begin{document}
 
