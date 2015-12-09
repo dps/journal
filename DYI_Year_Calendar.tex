@@ -1,0 +1,82 @@
+%%%%%%%%%%%%%%%
+% YEAR CALENDAR
+%
+% LAYOUT: 3 months per row, 4 rows (one page -- odd/right)
+%					   <year>
+%		---------------------------------
+%		MONTH <space> MONTH <space> MONTH
+%		MONTH <space> MONTH <space> MONTH
+%		MONTH <space> MONTH <space> MONTH
+%		MONTH <space> MONTH <space> MONTH
+%		---------------------------------
+%		---------------------------------
+%		---------------------------------
+
+% Settings-----------------------------------------------------------
+
+% percentage (0.0 - 1.0) taken by the 3 months tables (3 months in a row) on the Year Calendar
+% (the rest is equally split between 2 inter month-column spaces)
+\newcommand\percentMonthColTWidthYC{0.95}
+
+% calculate width of the month tabular* on the Year Calendar
+\newlength{\MonthTblWidthYC}
+\setlength{\MonthTblWidthYC}{( \textwidth * \real{\percentMonthColTWidthYC} ) / 3}
+
+% calculate weekday column width inside the month tabular* on the Year Calendar
+\newlength{\WkdayColWidthMonthTblYC}
+\setlength{\WkdayColWidthMonthTblYC}{\MonthTblWidthYC / 7}
+
+% Column Types for Months Tables on the Year Calendar
+% Notes: - using 'tabular*' so use '@{\extracolsep\fill}')
+%        - align to the 0.5em of right (supress the intercolumn space for better control)
+%	 - color affects space (inserts struts in current font), put it after font change
+% - weekday
+\newcolumntype{W}{>{\hfill\normalfont\footnotesize}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}@{\extracolsep\fill}}
+% - Saturday
+\newcolumntype{S}{>{\hfill\normalfont\footnotesize\color{WeekendDay}}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}@{\extracolsep\fill}}
+% - Sunday
+\newcolumntype{Z}{>{\hfill\normalfont\footnotesize\color{WeekendDay}}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}}
+
+\newcommand{\MonthTblYC}[1]{%
+	\begin{tabular*}{\MonthTblWidthYC}[t]{@{}*{5}{W}SZ@{}}
+		\rowcolor{HeadSubBg}
+		\WkdayTblRow{\bfseries\tiny} \\
+		#1
+	\end{tabular*}}
+
+\newcommand{\MonthNameRowYC}[3]{%
+	\rowcolor{HeadMainBg}
+	\vstrut{1.1em}
+	\color{white}#1 & \color{white}#2 & \color{white}#3}
+
+% Start--------------------------------------------------------------
+
+\hfill{\bfseries\Huge\MyYear}\par
+\nointerlineskip\vspace{0.5em}
+\rule{\textwidth}{1pt}
+
+\nointerlineskip\vspace{0.5em}
+
+\begin{tabular*}{\textwidth}{@{}>{\bfseries}c@{\extracolsep\fill}>{\bfseries}c@{\extracolsep\fill}>{\bfseries}c@{}}
+	\MonthNameRowYC{\January}{\February}{\March}    \\
+	\MonthTblYC{\MonthTblJan}  & \MonthTblYC{\MonthTblFeb}  & \MonthTblYC{\MonthTblMar} \\
+	\MonthNameRowYC{\April}{\May}{\June}            \\
+	\MonthTblYC{\MonthTblApr}  & \MonthTblYC{\MonthTblMay}  & \MonthTblYC{\MonthTblJun} \\
+	\MonthNameRowYC{\July}{\August}{\September}     \\
+	\MonthTblYC{\MonthTblJul}  & \MonthTblYC{\MonthTblAug}  & \MonthTblYC{\MonthTblSep} \\
+	\MonthNameRowYC{\October}{\November}{\December} \\
+	\MonthTblYC{\MonthTblOct}  & \MonthTblYC{\MonthTblNov}  & \MonthTblYC{\MonthTblDec}
+\end{tabular*}
+
+% fill the rest with lines, for notes
+\vspace{2em}
+{\color{WriteBgMain}
+\rule{\textwidth}{1pt}\par
+\rule{\textwidth}{1pt}\par
+\rule{\textwidth}{1pt}\par
+\rule{\textwidth}{1pt}\par
+\rule{\textwidth}{1pt}\par
+\rule{\textwidth}{1pt}\par
+\rule{\textwidth}{1pt}\par
+\rule{\textwidth}{1pt}\par}
+

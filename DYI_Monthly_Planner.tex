@@ -1,0 +1,226 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	MONTHLY PLANNER
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% LAYOUT:       Odd Page:                   Even Page:
+%		<Month>                   ||                <year>
+%               --------------------------++----------------------
+%               *Notes _| Mon | Tue | Wed || Thu | Fri | Sat | Sun
+%		       _|     |     |     ||     |     |     |     <= 5 rows (6th will be crammed in 5th)
+%               ..........................||......................
+%               prior/next
+%               month
+%               mini cal.
+
+% Settings-----------------------------------------------------------
+
+% percentage (0.0 - 1.0) taken by the '*Notes' column out of the full quarter textwidth
+\newcommand{\percentNoteColWidth}{0.95}
+% reminder, easier to set explicitly, must add to 1.0
+\newcommand{\percentNoteColWhite}{0.05}
+
+% Column width in monthly planner: make room for rules
+\newlength{\DayColWidthMP}
+\setlength{\DayColWidthMP}{\textwidth / 4}
+
+% Width of '*Notes' column
+\newlength{\NoteColWidthMP}
+\setlength{\NoteColWidthMP}{\DayColWidthMP * \real{\percentNoteColWidth}}
+\newlength{\NoteColSkipMP}
+\setlength{\NoteColSkipMP}{\DayColWidthMP * \real{\percentNoteColWhite}}
+
+% Column Types for Days Columns in Monthly Planner
+% - notes
+\newcolumntype{N}{>{\centering}p{\NoteColWidthMP}@{\hspace\NoteColSkipMP}}
+% - days, first/middle (Odd page: Mon, Tue; Even page: Thu, Fri, Sat)
+\newcolumntype{M}{>{\centering}p{\DayColWidthMP}@{\extracolsep\fill}}
+% - days, last (Odd page: Wed; Even page: Sun) \centering in combination with \\ doesn't work in last column, use \tabularnewline instead
+\newcolumntype{O}{>{\centering\arraybackslash}p{\DayColWidthMP}@{}}
+
+% Parameters for the month mini-calendars
+% * Column types
+\newlength{\WkdayColWidthMinicalMP}
+\setlength{\WkdayColWidthMinicalMP}{\NoteColWidthMP / 7}
+%   - weeekdays
+\newcolumntype{P}{>{\hfill\bfseries\tiny}p{\WkdayColWidthMinicalMP}@{\extracolsep\fill}}
+%   - Saturday (\vstrut is for the benefit of \color)
+\newcolumntype{Q}{>{\hfill\bfseries\tiny\vstrut{0pt}\color{WeekendDay}}p{\WkdayColWidthMinicalMP}@{\extracolsep\fill}}
+%   - Sunday (\vstrut is for the benefit of \color)
+\newcolumntype{R}{>{\hfill\bfseries\tiny\vstrut{0pt}\color{WeekendDay}}p{\WkdayColWidthMinicalMP}}
+% Tabular
+\newcommand{\MonthMiniCalOnMonthlyPlanner}[2]{%
+        \begin{tabular*}{\NoteColWidthMP}[t]{@{}*{5}{P}QR@{}}
+		\multicolumn{7}{>{\columncolor{HeadMainBg}}c}{\scriptsize\vstrut{1.1em}\bfseries\color{white}#1} \\
+                \rowcolor{HeadSubBg}
+                \WkdayTblRow{\hspace*{\fill}}\\
+                #2
+        \end{tabular*}}
+
+% Notes column on odd page in Monthly Planner
+% - hand tunned by trial and error, currently not posssible otherwise:
+%   the heigh of the multirow is set up at the current evaluation based on current settings (font, etc)
+% - so: artificially reserve (5 rows * 8 height) + 1 rows at current row heigh then build the minipage
+% - last "8" reserved for building the previous/next months calendars
+% Takes 4 params:
+% - #1 previous month name
+% - #2 previous month tabular layout
+% - #3 next month name
+% - #4 next month tabular layout
+\newcounter{NotesColumnRows}%
+\newcommand{\NoteColumn}[4]{%
+	\multirow{41}{\NoteColWidthMP}{%
+		\begin{minipage}{\NoteColWidthMP}%
+			\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[-24\baselineskip]{1em}{25\baselineskip}}}%
+			{\color{WriteBgMain}\raggedright
+				\setcounter{NotesColumnRows}{0}%
+				\whiledo{\value{NotesColumnRows}<25}{%
+					\rule{\NoteColWidthMP}{\arrayrulewidth}
+					\stepcounter{NotesColumnRows}
+				}%
+			}%
+		\end{minipage}%
+		\break
+		% previous month mini calendar
+		\begin{minipage}{\NoteColWidthMP}%
+			\renewcommand{\arraystretch}{0.8}
+			\MonthMiniCalOnMonthlyPlanner{#1}{#2}
+		\end{minipage}%
+		\break
+		% next month mini calendar
+		\begin{minipage}{\NoteColWidthMP}%
+			\renewcommand{\arraystretch}{0.8}
+			\MonthMiniCalOnMonthlyPlanner{#3}{#4}
+		\end{minipage}%
+		\break \vspace{4.6pt} % push it to the top
+	}%
+}
+
+% Cell format on Monthly Planner, pure play :)
+% - template: #1 - color for day number and left rule, #2 - date number
+\newcommand{\CellFormatMPTemplate}[2]{%
+	% gray bar at the top, ~ half row width
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
+	% thin rule to the left almost full heigh 
+	{\color{#1}\rule[-6\baselineskip]{\arrayrulewidth}{6\baselineskip}}%
+	% right-aligned date numbers
+	\makebox[2.7ex]{\hspace{\fill}{\color{#1}#2}}%
+	% the column is centered so force the previous box to the left
+	\hspace*{\fill}%
+	\break%
+	% white last row, makes the left sided line open/incomplete (does not join the one below)
+	\vstrut{1em}}
+% this one for cramming 2 days in one table cell, for months spanning 6 rows
+% - template: #1 - color for day number and left rule, #2 - first date number, #3 second date number
+\newcommand{\CellFormatMPTemplateTwo}[3]{%
+	% gray bar at the top, ~ half row width
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
+	% thin rule to the left almost full heigh 
+	{\color{#1}\rule[-2.5\baselineskip]{\arrayrulewidth}{2.5\baselineskip}}%
+	% right-aligned date numbers
+	\makebox[2.7ex]{\hspace{\fill}{\color{#1}#2}}%
+	% the column is centered so force the previous box to the left
+	\hspace*{\fill}%
+	\break%
+	% white last row, makes the left sided line open/incomplete (does not join the one below)
+	\vstrut{1em}%
+	% repeat
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
+	{\color{#1}\rule[-2.5\baselineskip]{\arrayrulewidth}{2.5\baselineskip}}%
+	\makebox[2.7ex]{\hspace{\fill}{\color{#1}#3}}%
+	\hspace*{\fill}%
+	\break%
+	\vstrut{1em}}
+
+% for days in current month
+% the optional argument is for months spanning 6 rows
+\newcommand{\CellFormatMP}[2][]{%
+	\ifthenelse{\equal{#1}{}}%
+		{\CellFormatMPTemplate{Black}{#2}}%
+		{\CellFormatMPTemplateTwo{Black}{#2}{#1}}}
+
+% for days in previous/next month
+\newcommand{\CellFormatMPDisabled}[1]{%
+	\CellFormatMPTemplate{DayMPDisabled}{#1}}
+
+% WARNING: The \vstrut in the heading for \MPLeftPage and \MPRightPage ensure enough space
+%          (and proper alignmeng of the following table) when accented characters are used
+
+% Monthly Planner Left Page
+% takes 6 parameters:
+% - #1   full name of current month
+% - #2-5 are passed as #1-4 to \NoteColumn (see def)
+% - #6   tabular layout for current month: \MP<Mon>Left
+\newcommand{\MPLeftPage}[6]{%
+	{\bfseries\Huge #1\vstrut[-0.5em]{1.4em}}\par
+	\nointerlineskip
+	\begin{tabular*}{\textwidth}{NMMO}
+		\rowcolor{HeadMainBgMP}%
+		% \makebox[1em] centers \ding{93} on the gray left vertical bar below, see \NoteColumn
+		\bfseries\vstrut{1.1em}{\color{white}\makebox[1em]{\ding{93}}\ \ding{50}\hfill} & \bfseries\vstrut{1.1em}\color{white}\Monday & \bfseries\vstrut{1.1em}\color{white}\Tuesday & \bfseries\vstrut{1.1em}\color{white}\Wednesday \\
+		% insert a dummy row: white, (cant use vspacing on previous \tabularnewline because it will turn colored as previous row)
+		\\[-0.8em]
+		\NoteColumn{#2}{#3}{#4}{#5}
+			#6{\CellFormatMP}{\CellFormatMPDisabled}
+	\end{tabular*}
+	
+	\clearpage
+}
+
+% Monthly Planner Right Page (similar to Right Page)
+% takes 1 parameters:
+% - #1    tabular layout for current month: \MP<Mon>Right
+\newcommand{\MPRightPage}[1]{%
+	\hfill{\bfseries\Huge\MyYear\vstrut[-0.5em]{1.4em}}\par
+	\nointerlineskip
+
+	\begin{tabular*}{\textwidth}{MMMO}
+		\rowcolor{HeadMainBgMP}
+		\bfseries\vstrut{1.1em}\color{white}\Thursday & \bfseries\vstrut{1.1em}\color{white}\Friday & \bfseries\vstrut{1.1em}\color{white}\Saturday & \bfseries\vstrut{1.1em}\color{white}\Sunday \\
+		% insert a dummy row: white, (cant use vspacing on previous \tabularnewline because it will turn colored as previous row)
+		\\[-0.8em]
+		#1{\CellFormatMP}{\CellFormatMPDisabled}
+	\end{tabular*}
+
+	\clearpage
+}
+
+% Start--------------------------------------------------------------
+
+\MPLeftPage{\January}{\December}{\MonthTblDecPrev}{\February}{\MonthTblFeb}{\MPJanLeft}
+\MPRightPage{\MPJanRight}
+
+\MPLeftPage{\February}{\January}{\MonthTblJan}{\March}{\MonthTblMar}{\MPFebLeft}
+\MPRightPage{\MPFebRight}
+
+\MPLeftPage{\March}{\February}{\MonthTblFeb}{\April}{\MonthTblApr}{\MPMarLeft}
+\MPRightPage{\MPMarRight}
+
+\MPLeftPage{\April}{\March}{\MonthTblMar}{\May}{\MonthTblMay}{\MPAprLeft}
+\MPRightPage{\MPAprRight}
+
+\MPLeftPage{\May}{\April}{\MonthTblApr}{\June}{\MonthTblJun}{\MPMayLeft}
+\MPRightPage{\MPMayRight}
+
+\MPLeftPage{\June}{\May}{\MonthTblMay}{\July}{\MonthTblJul}{\MPJunLeft}
+\MPRightPage{\MPJunRight}
+
+\MPLeftPage{\July}{\June}{\MonthTblJun}{\August}{\MonthTblAug}{\MPJulLeft}
+\MPRightPage{\MPJulRight}
+
+\MPLeftPage{\August}{\July}{\MonthTblJul}{\September}{\MonthTblSep}{\MPAugLeft}
+\MPRightPage{\MPAugRight}
+
+\MPLeftPage{\September}{\August}{\MonthTblAug}{\October}{\MonthTblOct}{\MPSepLeft}
+\MPRightPage{\MPSepRight}
+
+\MPLeftPage{\October}{\September}{\MonthTblSep}{\November}{\MonthTblNov}{\MPOctLeft}
+\MPRightPage{\MPOctRight}
+
+\MPLeftPage{\November}{\October}{\MonthTblOct}{\December}{\MonthTblDec}{\MPNovLeft}
+\MPRightPage{\MPNovRight}
+
+\MPLeftPage{\December}{\November}{\MonthTblNov}{\January}{\MonthTblJanNext}{\MPDecLeft}
+\MPRightPage{\MPDecRight}
+

@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%       WEERKLY PLANNER
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% LAYOUT: Odd Page                          Even Page
+%         Week <N>                             <Month> <Year>
+%         Monday Day Month(abbr)    [Notes] || Friday Day Month(abbr)   [Notes]
+%         Tuesday Day Month(abbr)   [     ] || Saturday Day Month(abbr) [     ]
+%         Wednesday Day Month(abbr) [     ] || Sunday Day Month(abbr)   [     ]
+%         Thursday Day Month(abbr)  [     ] || Months MiniCals          Summary
+
+% Settings-----------------------------------------------------------
+
+% Space partitioning
+% - space for the hour entry at the beginning of the filler row
+\newlength{\HourBondingBoxWP}
+\setlength{\HourBondingBoxWP}{2.5ex}
+%   |<--textwidth-------------------------------------------------------------------------------->|
+%   |<--DayFillerTotWidthWP------------------------------------------>|<--NotesFillerTotWidthWP-->|
+%   |<--DayFillerWidthWP-------------------------->|<-DayFillerSepWP->|<--NotesFillerTotWidthWP-->|
+%   |<-HourBondingBoxWP->|<-DayFillerRulerWidthWP->|<-DayFillerSepWP->|<--NotesFillerTotWidthWP-->|
+\newlength{\DayFillerTotWidthWP}
+\setlength{\DayFillerTotWidthWP}{( \textwidth * 2 ) /3}
+\newlength{\DayFillerSepWP}
+\setlength{\DayFillerSepWP}{1em}
+\newlength{\DayFillerWidthWP}
+\setlength{\DayFillerWidthWP}{\DayFillerTotWidthWP - \DayFillerSepWP}
+\newlength{\DayFillerRulerWidthWP}
+\setlength{\DayFillerRulerWidthWP}{\DayFillerWidthWP - \HourBondingBoxWP}
+\newlength{\NotesFillerTotWidthWP}
+\setlength{\NotesFillerTotWidthWP}{\textwidth - \DayFillerTotWidthWP}
+% minicalendar space partitioning
+%   |<-DayFillerWidthWP-------------------------------------->|
+%   |<-PrevMonth->|<-sep->|<-CurrMonth->|<-sep->|<-NextMonth->|
+\newlength{\MinicalSepWP}
+\setlength{\MinicalSepWP}{2ex}
+\newlength{\MinicalWidthWP}
+\setlength{\MinicalWidthWP}{( \DayFillerWidthWP - 2 \MinicalSepWP ) / 3}
+%   column width in Minical
+\newlength{\MinicalColWidthWP}
+\setlength{\MinicalColWidthWP}{\MinicalWidthWP / 7}
+
+% Day entry contents on Weekly Planner
+% - one row:
+%   <hour>________<-sep->___
+%   (#1 is the current hour, right aligned inside a makebox,  also using a vstrut to define heigh
+\newcommand{\DayFillerRowWP}[1]{%
+	\makebox[\HourBondingBoxWP]{\hspace{\fill}#1\hspace{0.5em}}\vstrut{11.5pt}{\color{WriteBgMain}\rule{\DayFillerRulerWidthWP}{0.5pt}}%
+	\hspace*{\DayFillerSepWP}%
+	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}}
+% - as above but no <hour>
+\newcommand{\DayFillerRowEWP}{%
+	\vstrut{11.5pt}%
+        {\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}}%
+        \hspace*{\DayFillerSepWP}%
+        {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}}
+% - then fill, with hour intervals
+\newcommand{\DayFillerWP}{%
+	\DayFillerRowWP{6}\break%
+	\DayFillerRowWP{8}\break%
+	\DayFillerRowWP{10}\break%
+	\DayFillerRowWP{12}\break%
+	\DayFillerRowWP{2}\break%
+	\DayFillerRowWP{4}\break%
+	\DayFillerRowWP{6}\break%
+	\DayFillerRowWP{8}}
+
+% Monthly minicalendars on Weekly Planner
+% Column types I,J,K
+% - weeekdays
+\newcolumntype{I}{>{\hfill\bfseries\tiny}p{\MinicalColWidthWP}@{\extracolsep\fill}}
+% - Saturday
+\newcolumntype{J}{>{\hfill\bfseries\tiny\vstrut{0pt}\color{WeekendDay}}p{\MinicalColWidthWP}@{\extracolsep\fill}}
+% - Sunday (last column)
+\newcolumntype{K}{>{\hfill\bfseries\tiny\vstrut{0pt}\color{WeekendDay}}p{\MinicalColWidthWP}}
+% - Monthly Minicals, center the weekdays headline
+\newcommand{\myCentering}[1]{\hspace*{\fill}#1\hspace*{\fill}}
+\newcommand{\MonthMiniCalWP}[2]{%
+	{\renewcommand{\arraystretch}{0.6}%
+	\begin{tabular*}{\MinicalWidthWP}[t]{@{}*{5}{I}JK@{}}
+	\multicolumn{7}{>{\columncolor{HeadMainBg}}c}{\scriptsize\vstrut{1.1em}\bfseries\color{white}#1} \\
+	\rowcolor{HeadSubBg}%
+	\WkdayTblRowA{\myCentering} \\
+	#2
+	\end{tabular*}}}
+
+% Day entry in Weekly Planner
+\newcommand{\DayWP}[1]{%
+	% gray shading bar
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
+	% Day (e.g. Monday 1 Jan)
+	% Notes: the parbox leaves the current insertion point (for the next box)
+	%        at the start of the Notes 'column' (also align text left)
+	%        so it joins with the Notes header
+	\parbox[t]{\DayFillerTotWidthWP}{\large #1\hrulefill}%
+	\setlength{\unitlength}{1mm}%
+	\begin{picture}(40,8)
+		\put(20,0){\oval[2](40,8)[t]}
+		\put(1,0){\large\ding{50}}
+		\put(36,0){\large\ding{51}}
+	\end{picture}\hspace{\fill}\par%
+	\DayFillerWP%
+	\vspace{1ex}}
+
+% Notes entry in Weekly Planner (right page, bottom section)
+\newcommand{\NotesWP}[6]{%
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
+	\parbox[t]{\DayFillerTotWidthWP}{\large\Notes\hrulefill}%
+	\setlength{\unitlength}{1mm}%
+        \begin{picture}(40,8)
+                \put(20,0){\oval[2](40,8)[t]}
+                \put(1,0){\large\ding{50}}
+                \put(36,0){\large\ding{51}}
+        \end{picture}\hspace{\fill}\par%
+	\renewcommand{\arraystretch}{0.55}%
+	\begin{tabular*}{\textwidth}[t]{@{}p{\DayFillerWidthWP}@{\hspace*{\DayFillerSepWP}}p{\NotesFillerTotWidthWP}@{}}%
+	% the \color command mangles the spacing, typeset an \vstrut to fix and align with facing page
+	\vstrut{13.5pt}{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & \vstrut{13.5pt}{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	                                                     & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	\smash[t]{\MonthMiniCalWP{#1}{#2}%
+	\hspace{\MinicalSepWP}%
+	\MonthMiniCalWP{#3}{#4}%
+	\hspace{\MinicalSepWP}%
+	\MonthMiniCalWP{#5}{#6}} &
+	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	\end{tabular*}}
+
+% Left page
+\newcommand{\LeftPageWP}[5]{%
+	{\bfseries\Large\Week{} #1\vstrut[-0.2em]{1.2em}}\par
+	\nointerlineskip
+	\DayWP{\Monday{} #2}\par
+	\DayWP{\Tuesday{} #3}\par
+	\DayWP{\Wednesday{} #4}\par
+	\DayWP{\Thursday{} #5}\vspace*{\fill}%
+	\clearpage}
+
+% Right page
+
+\newcommand{\RightPageHeaderWP}[1]{%
+	{\hspace*{\fill}\bfseries\Large #1\vstrut[-0.2em]{1.2em}}\par%
+	\nointerlineskip}
+
+\newcommand{\RightPageWP}[9]{%
+	\DayWP{\Friday{} #1}\par
+	\DayWP{\Saturday{} #2}\par
+	\DayWP{\Sunday{} #3}\par
+	\NotesWP{#4}{#5}{#6}{#7}{#8}{#9}\vspace*{\fill}%
+	\clearpage}
+
+% Start--------------------------------------------------------------
+
+%\LeftPageWP{1}{29 Dec}{30 Dec}{31 Dec}{1 Jan}
+%\RightPageHeaderWP{Dec 2008 -- Jan 2009}%
+%\RightPageWP{2 Jan}{3 Jan}{4 Jan}{December}{\MonthTblDecPrev}{January}{\MonthTblJan}{February}{\MonthTblFeb}
+
+\input{DYI_Weekly_Planner_Tables}
+

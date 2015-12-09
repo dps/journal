@@ -1,0 +1,102 @@
+\documentclass[a5paper,twoside]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+
+\usepackage[utf8]{inputenc}
+
+% paper settings
+\usepackage{vmargin}
+
+% macro helpers
+\usepackage{xspace}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{amsmath}
+
+% tabular environments
+\usepackage{array}
+\usepackage{multirow}
+
+% graphics and color
+\usepackage{pict2e}
+\usepackage[usenames]{color}
+\usepackage{colortbl}
+
+% special symbols
+\usepackage{pifont}
+
+%--------------------------------------------------------------------
+% Document-wide settings
+
+% paper: A5 is 148mm x 210mm
+\setpapersize[portrait]{A5}
+% 18mm on binding -> text area = 120mm x 190mm
+\setmargnohfrb{18mm}{10mm}{10mm}{10mm}
+
+% Default font: Avantgarde
+\usepackage{avant}
+\renewcommand{\familydefault}{pag}
+
+% no paragraph indentation
+\setlength{\parindent}{0pt}
+
+% Color definitions
+% - plain black
+\definecolor{Black}{gray}{0}
+% - disabled days in MonthlyPlanner (from prior/next month)
+\definecolor{DayMPDisabled}{gray}{0.7}
+% - table headers: month names in Year Calendar and MiniCal/MonthlyPlanner
+\definecolor{HeadMainBg}{gray}{0.4}
+% - table second header: day names in monthy calendars (incl MiniCal/MonthlyPlanner)
+\definecolor{HeadSubBg}{gray}{0.8}
+% - table column color for Sat, Sun (Weekend), uncomment & tune 2nd def for color
+\definecolor{WeekendDay}{gray}{0.3}
+% - writing guides - primary: (thin) rules/lines, dots, etc.
+\definecolor{WriteBgMain}{gray}{0.6}
+% - writing guides - secondary: grey (thick) bars, etc.
+\definecolor{WriteBgSec}{gray}{0.9}
+% - table header background in Monthly Planner
+\definecolor{HeadMainBgMP}{gray}{0.8}
+
+% Hacks
+% - required by correct \rowcolor
+\setlength{\tabcolsep}{0pt}
+
+%--------------------------------------------------------------------
+% Macros
+
+% vertical strut
+%	#1 (optional) = "lift", default 0pt
+%	#2            = "(total)height"
+\newcommand{\vstrut}[2][0pt]{\rule[#1]{0pt}{#2}}
+
+% Internationalization
+\input{DYI_i18n}
+
+% Weekdays (abbreviated) table row (no // ending)
+% - generates the weekdays header for monthly tables
+%	#1 = macro to apply to name, default nothing
+\newcommand{\WkdayTblRow}[1]{%
+	#1{\Mon} & #1{\Tue} & #1{\Wed} & #1{\Thu} & #1{\Fri} & #1{\Sat} & #1{\Sun}}
+% - as above but condensed to just one letter
+\newcommand{\WkdayTblRowA}[1]{%
+	#1{\MonA} & #1{\TueA} & #1{\WedA} & #1{\ThuA} & #1{\FriA} & #1{\SatA} & #1{\SunA}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{DYI_Month_Tables.tex}
+\input{DYI_Monthly_Planner_Tables.tex}
+
+%\newcounter{DIYYear}
+%\setcounter{DIYYear}{\MyYear}
+
+\begin{document}
+
+\include{DYI_Year_Calendar}
+
+\include{DYI_Monthly_Planner}
+
+\include{DYI_Weekly_Planner}
+
+\end{document}
