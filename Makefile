@@ -15,21 +15,26 @@ FILES_TEX_GEN = DYI_i18n.tex                   \
                 DYI_Monthly_Planner_Tables.tex \
                 DYI_Weekly_Planner_Tables.tex
 
-GNUPLOT_INPUT = 52wks.gnuplot
-GNUPLOT_OUTPUT = 52wks.tex \
-				 52wk.eps \
-				 52wk.pdf
+GNUPLOT_INPUT = 52wks.gnuplot daily.gnuplot
+GNUPLOT_TEX = 52wks.tex \
+			  daily.tex
+GNUPLOT_INTERMEDIATE = 52wks.eps \
+					   daily.eps
+GNUPLOT_OUTPUT = 52wks.pdf \
+				 daily.pdf
 GNUPLOT = gnuplot -c
 
-DEFAULT: $(FILES_TEX) $(FILES_TEX_GEN)
+DEFAULT: $(FILES_TEX) $(FILES_TEX_GEN) $(GNUPLOT_TEX) $(GNUPLOT_OUTPUT)
 	$(PDFLATEX) $(MAIN_FILE)
 
 $(FILES_TEX_GEN): $(MACRO_GENERATOR)
 	$(MACRO_GENERATOR)
 
-$(GNUPLOT_OUTPUT): $(GNUPLOT_INPUT)
-	$(GNUPLOT) $(GNUPLOT_INPUT)
-	pstopdf 52wk.eps
+$(GNUPLOT_TEX): $(GNUPLOT_INPUT)
+	$(GNUPLOT) $(@:.tex=.gnuplot)
+
+$(GNUPLOT_OUTPUT): $(GNUPLOT_TEX)
+	pstopdf $(@:.pdf=.eps)
 
 clean:
 	rm -f $(FILES_TEX:.tex=.dvi)
@@ -37,6 +42,7 @@ clean:
 	rm -f $(FILES_TEX_GEN:.tex=.aux)
 	rm -f $(FILES_TEX_GEN)
 	rm -f $(GNUPLOT_OUTPUT)
+	rm -f $(GNUPLOT_INTERMEDIATE)
 	rm -f $(MAIN_FILE).log
 	rm -f *~
 

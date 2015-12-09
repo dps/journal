@@ -91,9 +91,30 @@
 %\newcounter{DIYYear}
 %\setcounter{DIYYear}{\MyYear}
 
-\begin{document}
+\usepackage[hyphens]{url}
+\usepackage{rotating}
+\usepackage{forloop}% http://ctan.org/pkg/forloop
+\newcounter{loopcntr}
+\newcommand{\rpt}[2][1]{%
+  \forloop{loopcntr}{0}{\value{loopcntr}<#1}{#2}%
+}
+\usepackage{tikz}
+\usepackage{latexsym}
+\usepackage{multicol}
 
+\newenvironment{checklist}{%
+  \begin{list}{}{}% whatever you want the list to be
+  \let\olditem\item
+  \renewcommand\item{\olditem[$\Box$  $\Box$] }
+}{%
+  \end{list}
+}
+
+\begin{document}
+\setcounter{secnumdepth}{0}
 \include{DYI_Year_Calendar}
+
+\include{year_stuff}
 
 \include{DYI_Monthly_Planner}
 
