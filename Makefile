@@ -30,10 +30,10 @@ DEFAULT: $(FILES_TEX) $(FILES_TEX_GEN) $(GNUPLOT_TEX) $(GNUPLOT_OUTPUT)
 $(FILES_TEX_GEN): $(MACRO_GENERATOR)
 	$(MACRO_GENERATOR)
 
-$(GNUPLOT_TEX): $(GNUPLOT_INPUT)
-	$(GNUPLOT) $(@:.tex=.gnuplot)
+%.eps : %.gnuplot
+	$(GNUPLOT) $(@:.eps=.gnuplot)
 
-$(GNUPLOT_OUTPUT): $(GNUPLOT_TEX)
+%.pdf : %.eps
 	pstopdf $(@:.pdf=.eps)
 
 clean:
