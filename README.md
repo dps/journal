@@ -1,9 +1,3 @@
-# journal
-
-Based on DIY Organizer.
-
-DIY Organizer was originally by Rurik Christiansen (rurik) from http://www.diyplanner.com/node/6270 and is licensed under a Creative Commons License.
-
 # Journal
 
 I'm a Software person, I spend 80+% of my waking hours in front of some kind of computing device.  I love it.  Building software products is fun and creative - virtually anything you imagine is possible, sometimes things that seem impossible are just difficult.  Careful thinking and prioritization helps build the most amazing products.
@@ -19,3 +13,10 @@ It has sections for setting objectives and how they will be measured.  The act o
 It has sections for plotting charts of metrics that relate to my objectives throughout the year.  The act of plotting my progress on a chart every day and every week keeps my priorities connected to my goals.
 
 I'm a software person, so there are sections for wireframing, for sketching system designs and for capturing feedback.  There's even an ASCII chart, because who knows when you might find yourself stranded on Mars with only a webcam and a pointer to communicate with earth?
+
+# About
+
+Based on DIY Organizer.
+
+DIY Organizer was originally by Rurik Christiansen (rurik) from http://www.diyplanner.com/node/6270 and is licensed under a Creative Commons License.
+
