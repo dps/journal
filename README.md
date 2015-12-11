@@ -6,7 +6,7 @@ DIY Organizer was originally by Rurik Christiansen (rurik) from http://www.diypl
 
 # Journal
 
-I'm a Software person, I spend 80+% of my waking hours in front of some kind of computing device.  I love it.  Building software products is fun and creative - virtually anything you imagine is possible, sometimes things that seem impossible are just difficult.  Careful thinking and prioritization helps build the most amazing products.
+I'm a Software person, I spend 80+% of my waking hours in front of some kind of computing device.  I love it.  Building software products is fun and creative - virtually anything you imagine is possible.  Sometimes things that seem impossible are just difficult.  Careful thinking and prioritization helps build the most amazing products.
 
 It may be surprising to you, but I like to write things down.  With a pen.  It helps me remember things and to fully internalize whatever it is I'm writing about.  I write documents and emails and posts and tweets on a computer too, but when I really need to remember something, I write it down.  When I was studying as a kid, or revising for my finals, I made detailed summary notes and somehow, once I'd processed whatever I was trying to remember through the physical act of writing, recall became much easier.
 
