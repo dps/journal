@@ -139,22 +139,22 @@
 % Notes entry in Weekly Planner (right page, bottom section)
 \newcommand{\NotesWP}{%
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
-	\parbox[t]{\DayFillerTotWidthWP}{\large\Notes\hrulefill}%
+	\parbox[t]{\DayFillerTotWidthWP}{\large\Notes}%
 	\setlength{\unitlength}{1mm}%
         \begin{picture}(40,8)
                 %\put(20,0){\oval[2](40,8)[t]}
-                \put(1,0){\large{}\includegraphics{exercise}}
+                \put(0,-1){\large{}\includegraphics{exercise}}
                 %\put(30,0){\includegraphics{exercise}}
         \end{picture}\hspace{\fill}\par%
 	\renewcommand{\arraystretch}{0.55}%
 	\begin{tabular*}{\textwidth}[t]{@{}p{\DayFillerWidthWP}@{\hspace*{\DayFillerSepWP}}p{\NotesFillerTotWidthWP}@{}}%
 	% the \color command mangles the spacing, typeset an \vstrut to fix and align with facing page
 	\vstrut{13.5pt}{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & \vstrut{13.5pt}{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} &  \\
 	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} &  \\
 	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} &  \\
 	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
 	%                                                     & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
 	%\smash[t]{\MonthMiniCalWP{#1}{#2}%
