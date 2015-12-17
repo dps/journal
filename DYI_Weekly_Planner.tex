@@ -58,14 +58,14 @@
         {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}}
 % - then fill, with hour intervals
 \newcommand{\DayFillerWP}{%
-	\DayFillerRowWP{6}\break%
-	\DayFillerRowWP{8}\break%
-	\DayFillerRowWP{10}\break%
-	\DayFillerRowWP{12}\break%
-	\DayFillerRowWP{2}\break%
-	\DayFillerRowWP{4}\break%
-	\DayFillerRowWP{6}\break%
-	\DayFillerRowWP{8}}
+	\DayFillerRowWP{\ding{46}}\break%
+	\DayFillerRowWP{}\break%
+	\DayFillerRowWP{}\break%
+	\DayFillerRowWP{}\break%
+	\DayFillerRowWP{}\break%
+	\DayFillerRowWP{}\break%
+	\DayFillerRowWP{}\break%
+	\DayFillerRowWP{}}
 
 % Monthly minicalendars on Weekly Planner
 % Column types I,J,K
@@ -104,14 +104,14 @@
 	\DayFillerWP%
 	\vspace{1ex}}
 
-% Notes entry in Weekly Planner (right page, bottom section)
-\newcommand{\NotesWP}[6]{%
+% Week Goals entry in Weekly Planner (left page, top section)
+\newcommand{\WeekGoalsWP}{%
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
-	\parbox[t]{\DayFillerTotWidthWP}{\large\Notes\hrulefill}%
+	\parbox[t]{\DayFillerTotWidthWP}{\large\WeekGoals\hrulefill}%
 	\setlength{\unitlength}{1mm}%
         \begin{picture}(40,8)
                 \put(20,0){\oval[2](40,8)[t]}
-                \put(1,0){\large\ding{50}}
+                \put(1,0){\large{}\ding{50}}
                 \put(36,0){\large\ding{51}}
         \end{picture}\hspace{\fill}\par%
 	\renewcommand{\arraystretch}{0.55}%
@@ -120,27 +120,72 @@
 	\vstrut{13.5pt}{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & \vstrut{13.5pt}{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
 	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
 	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	                                                     & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	\smash[t]{\MonthMiniCalWP{#1}{#2}%
-	\hspace{\MinicalSepWP}%
-	\MonthMiniCalWP{#3}{#4}%
-	\hspace{\MinicalSepWP}%
-	\MonthMiniCalWP{#5}{#6}} &
-	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
-	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
-	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
-	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	%                                                     & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	%\smash[t]{\MonthMiniCalWP{#1}{#2}%
+	%\hspace{\MinicalSepWP}%
+	%\MonthMiniCalWP{#3}{#4}%
+	%\hspace{\MinicalSepWP}%
+	%\MonthMiniCalWP{#5}{#6}} &
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	\end{tabular*}}
+
+% Notes entry in Weekly Planner (right page, bottom section)
+\newcommand{\NotesWP}{%
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
+	\parbox[t]{\DayFillerTotWidthWP}{\large\Notes\hrulefill}%
+	\setlength{\unitlength}{1mm}%
+        \begin{picture}(40,8)
+                %\put(20,0){\oval[2](40,8)[t]}
+                \put(1,0){\large{}\includegraphics{exercise}}
+                %\put(30,0){\includegraphics{exercise}}
+        \end{picture}\hspace{\fill}\par%
+	\renewcommand{\arraystretch}{0.55}%
+	\begin{tabular*}{\textwidth}[t]{@{}p{\DayFillerWidthWP}@{\hspace*{\DayFillerSepWP}}p{\NotesFillerTotWidthWP}@{}}%
+	% the \color command mangles the spacing, typeset an \vstrut to fix and align with facing page
+	\vstrut{13.5pt}{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & \vstrut{13.5pt}{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	%                                                     & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	%\smash[t]{\MonthMiniCalWP{#1}{#2}%
+	%\hspace{\MinicalSepWP}%
+	%\MonthMiniCalWP{#3}{#4}%
+	%\hspace{\MinicalSepWP}%
+	%\MonthMiniCalWP{#5}{#6}} &
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
+	%{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}\break
 	\end{tabular*}}
 
 % Left page
-\newcommand{\LeftPageWP}[5]{%
+\newcommand{\LeftPageWP}[4]{%
 	{\bfseries\Large\Week{} #1\vstrut[-0.2em]{1.2em}}\par
 	\nointerlineskip
+	\WeekGoalsWP\par
 	\DayWP{\Monday{} #2}\par
 	\DayWP{\Tuesday{} #3}\par
-	\DayWP{\Wednesday{} #4}\par
-	\DayWP{\Thursday{} #5}\vspace*{\fill}%
+	\DayWP{\Wednesday{} #4}\vspace*{\fill}%
 	\clearpage}
+
+% \newcommand{\LeftPageWP}[4]{%
+% 	{\bfseries\Large\Week{} #1\vstrut[-0.2em]{1.2em}}\par
+% 	\nointerlineskip
+% 	\DayWP{\Monday{} #2}\par
+% 	\DayWP{\Tuesday{} #3}\par
+% 	\DayWP{\Wednesday{} #4}\par
+% 	\DayWP{\Thursday{} #5}\vspace*{\fill}%
+% 	\clearpage}
 
 % Right page
 
@@ -148,11 +193,11 @@
 	{\hspace*{\fill}\bfseries\Large #1\vstrut[-0.2em]{1.2em}}\par%
 	\nointerlineskip}
 
-\newcommand{\RightPageWP}[9]{%
-	\DayWP{\Friday{} #1}\par
-	\DayWP{\Saturday{} #2}\par
-	\DayWP{\Sunday{} #3}\par
-	\NotesWP{#4}{#5}{#6}{#7}{#8}{#9}\vspace*{\fill}%
+\newcommand{\RightPageWP}[4]{%
+	\DayWP{\Thursday{} #1}\par
+	\DayWP{\Friday{} #2}\par
+	\DayWP{\Saturday{} #3 \& \Sunday{} #4}\par
+	\NotesWP{}\vspace*{\fill}%
 	\clearpage}
 
 % Start--------------------------------------------------------------

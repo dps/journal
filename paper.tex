@@ -11,6 +11,22 @@
   \pagebreak
   }
 \rpt[10]{
+  \section{triangular}
+  \begin{tikzpicture}[scale=.5]
+    \foreach \x [count=\xi] in {0,...,24}
+    \foreach \y [count=\yi] in {0,2,...,35}
+    {
+  \fill (\x cm,\y cm) circle (0.03cm);
+    }       
+    \foreach \x [count=\xi] in {0.5,...,24}
+    \foreach \y [count=\yi] in {1,3,...,35}
+    {
+  \fill (\x cm,\y cm) circle (0.03cm);
+    }       
+  \end{tikzpicture}
+  \pagebreak
+}
+\rpt[10]{
  \section{graph}
   \begin{tikzpicture}[scale=.5]
 \draw [very thin, gray] (0,0) grid (25,35);

@@ -30,7 +30,10 @@ locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')      # Great Britain
 
 # Define "Week" and "Notes" words, being used in the Weekly Planner
 Week_locale = 'Week'
-Notes_locale = 'Notes'
+Notes_locale = 'How did it go?'
+Week_Goals_locale = 'Week Goals'
+Physical_Activity_locale = 'Exercise'
+
 
 # END user configuration -- do _NOT_ change anything below
 #------------------------------------------------------------------------------
@@ -63,6 +66,8 @@ def write_out_i18n_macros(file):
 
     i18n_macros_FH.writelines('\\newcommand{\\Week}{' + Week_locale + '}\n')
     i18n_macros_FH.writelines('\\newcommand{\\Notes}{' + Notes_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\WeekGoals}{' + Week_Goals_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\Exercise}{' + Physical_Activity_locale + '}\n')
     i18n_macros_FH.writelines('\n')
 
     # capitalize 1-letter day abbrevs, bot not the rest (?)
@@ -381,7 +386,7 @@ def write_out_WP_macros(year, file):
             next_month_name = calendar.month_name[1]
 
         left_pg_macro  = '\LeftPageWP{' + str(w) + '}'
-        for d in range(0,4):
+        for d in range(0,3):
             left_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
 
         right_pg_header = '\RightPageHeaderWP{'
@@ -394,11 +399,11 @@ def write_out_WP_macros(year, file):
             right_pg_header = '\RightPageHeaderWP{' + calendar.month_abbr[12] + ' ' + str(other_y) + ' -- ' + calendar.month_abbr[1] + ' ' + str(curr_y) +'}'
 
         right_pg_macro = '\RightPageWP'
-        for d in range(4,7):
+        for d in range(3,7):
             right_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
-        right_pg_macro += '{' + prev_month_name + '}' + '{' + prev_month_table + '}'
-        right_pg_macro += '{' + curr_month_name + '}' + '{' + curr_month_table + '}'
-        right_pg_macro += '{' + next_month_name + '}' + '{' + next_month_table + '}'
+        #right_pg_macro += '{' + prev_month_name + '}' + '{' + prev_month_table + '}'
+        #right_pg_macro += '{' + curr_month_name + '}' + '{' + curr_month_table + '}'
+        #right_pg_macro += '{' + next_month_name + '}' + '{' + next_month_table + '}'
 
         WP_macros_FH.writelines(left_pg_macro + '\n')
         WP_macros_FH.writelines(right_pg_header + '\n')
