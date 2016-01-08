@@ -1,5 +1,5 @@
 ## beta test a 2016 journal
-https://goo.gl/gsw9QZ
+http://www.lulu.com/shop/david-singleton/journal-alpha/paperback/product-22517582.html
 
 # Journal
 
