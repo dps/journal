@@ -3,6 +3,7 @@ http://www.lulu.com/shop/david-singleton/journal-alpha/paperback/product-2251758
 
 Note that the price is set at cost - I make no profit on this at all - it is a beta after all!
 
+-- David Singleton [@dps](http://www.twitter.com/dps)
 # Journal
 
 ![Journal photo](http://blog.davidsingleton.org/images/journal.jpg)
