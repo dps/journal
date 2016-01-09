@@ -22,6 +22,10 @@ It has sections for plotting charts of metrics that relate to my objectives thro
 
 I'm a software person, so there are sections for wireframing, for sketching system designs and for capturing feedback.  There's even an ASCII chart, because who knows when you might find yourself stranded on Mars with only a webcam and a pointer to communicate with earth?
 
+# Prebuilt
+
+A recent prebuilt PDF is available [here](http://singleton.io/alpha/Journal.pdf).
+
 # About
 
 Based on DIY Organizer.
