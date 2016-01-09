@@ -1,6 +1,8 @@
 ## beta test a 2016 journal
 http://www.lulu.com/shop/david-singleton/journal-alpha/paperback/product-22517582.html
 
+Note that the price is set at cost - I make no profit on this at all - it is a beta after all!
+
 # Journal
 
 I'm a Software person, I spend 80+% of my waking hours in front of some kind of computing device.  I love it.  Building software products is fun and creative - virtually anything you imagine is possible.  Sometimes things that seem impossible are just difficult.  Careful thinking and prioritization helps build the most amazing products.
