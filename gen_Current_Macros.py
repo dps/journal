@@ -18,7 +18,7 @@ import locale
 # User configuration:
 
 # Year to generate for
-year = 2016
+year = 2017
 
 # Locale -- uncomment one only, use utf-8 encoding ONLY
 #
