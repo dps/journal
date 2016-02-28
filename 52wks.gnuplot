@@ -1,4 +1,5 @@
-set terminal epslatex size 13.5cm, 12cm
+# A5 is 148mm x 210mm, this figure is rotated 90 degrees in the journal
+set terminal epslatex size 16.5cm, 12cm
 set output "52wks.tex"
 set xrange [0:52]
 set yrange [0:10]
