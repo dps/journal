@@ -26,6 +26,14 @@
 % special symbols
 \usepackage{pifont}
 
+\usepackage{afterpage}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
 %--------------------------------------------------------------------
 % Document-wide settings
 
@@ -124,8 +132,5 @@
 
 \include{DYI_Weekly_Planner}
 
-\include{paper}
-\include{wireframe}
-\include{coloring}
-\include{asciichart}
+\include{paper}\include{wireframe}\include{coloring}\include{asciichart}
 \end{document}
