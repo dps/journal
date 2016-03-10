@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 MAKE_WHOLE_DOCUMENTS = False
 

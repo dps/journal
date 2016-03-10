@@ -1,4 +1,4 @@
-set terminal epslatex size 13.5cm, 12cm
+set terminal epslatex size 16.5cm, 12cm
 set output "daily.tex"
 set xrange [0:92]
 set yrange [0:10]
