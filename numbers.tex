@@ -1,0 +1,46 @@
+
+\begin{table}[tbp]
+  \centering
+\begin{tabular}{ l r }
+Operation & Latency in nanoseconds \\
+\hline
+L1 cache reference & 0.5 ns \\
+Branch mispredict & 5 ns \\
+L2 cache reference & 7 ns \\
+Main memory reference & 100 ns \\
+Send 2K bytes over 1 Gbps network & 20,000 ns \\
+Read 1 MB sequentially from memory & 250,000 ns \\
+Round trip within same datacenter & 500,000 ns \\
+Disk seek & 10,000,000 ns \\
+Read 1 MB sequentially from disk & 20,000,000 ns \\
+Send packet California->Europe->California & 150,000,000 ns
+\end{tabular}
+  
+  \caption{Latency of key compute operations}
+  \label{tab:numbers}
+\end{table}
+
+\newcolumntype{C}{>{\centering\arraybackslash}p{2.5em}}
+\newcolumntype{L}{>{\arraybackslash}p{7em}}
+
+\begin{table}[tbp]
+  \centering
+\begin{tabular}{ L r C L r}
+\multicolumn{5}{c}{Countries by population} \\
+\hline
+China & 1,376 & & Mexico & 122\\
+India & 1,288 & & Philippines & 103\\
+United States & 323 & & Ethiopia & 92\\
+Indonesia & 259 & & Vietnam & 92 \\
+Brazil & 206 & & Egypt & 91\\
+Pakistan & 193 & & DR Congo & 85 \\
+Nigeria & 187 & & Germany & 81 \\
+Bangladesh & 160 & & Iran & 79 \\
+Russia & 147 & & Turkey & 79\\
+Japan & 127 & & Thailand & 65
+\end{tabular}
+  
+  \caption{Population data: 100,000s 2016}
+  \label{tab:numbers}
+\end{table}
+

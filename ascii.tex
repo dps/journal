@@ -1,0 +1,34 @@
+
+\newcolumntype{C}{>{\centering\arraybackslash}p{2.5em}}
+
+\begin{table}[tbp]
+  \centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ l C C C C C C C  } &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  \\
+\ding{165} &  & \textcolor{gray}{2} & \textcolor{gray}{3} & \textcolor{gray}{4} & \textcolor{gray}{5} & \textcolor{gray}{6} & \textcolor{gray}{7} \\
+\hline
+\ding{116} & \textcolor{gray}{0} & \textvisiblespace & 0 & @ & P & ` & p \\
+ & \textcolor{gray}{1} & ! & 1 & A & Q & a & q \\
+ & \textcolor{gray}{2} & " & 2 & B & R & b & r \\
+ & \textcolor{gray}{3} & \# & 3 & C & S & c & s \\
+ & \textcolor{gray}{4} & \$ & 4 & D & T & d & t \\
+ & \textcolor{gray}{5} & \% & 5 & E & U & e & u \\
+ & \textcolor{gray}{6} & \& & 6 & F & V & f & v \\
+ & \textcolor{gray}{7} & ' & 7 & G & W & g & w \\
+ & \textcolor{gray}{8} & ( & 8 & H & X & h & x \\
+ & \textcolor{gray}{9} & ) & 9 & I & Y & i & y \\
+ & \textcolor{gray}{a} & * & : & J & Z & j & z \\
+ & \textcolor{gray}{b} & + & ; & K & [ & k & \{ \\
+ & \textcolor{gray}{c} & , & < & L & \textbackslash & l & | \\
+ & \textcolor{gray}{d} & - & = & M & ] & m & \} \\
+ & \textcolor{gray}{e} & . & > & N & \textasciicircum & n & \textasciitilde \\
+ & \textcolor{gray}{f} & / & ? & O & \_ & o & del \\
+ &  &  &  &  &  &  &  \\
+
+  \end{tabular}
+  }
+  \caption[]{\tabular[t]{@{}l@{}}ASCII Printable Characters;\\ \ding{165} - 1st hex digit, \ding{116} - 2nd hex digit\endtabular}
+  %{ASCII Printable Characters; \ding{165} - 1st hex digit, \ding{116} - 2nd hex digit}
+  \label{tab:ascii}
+\end{table}

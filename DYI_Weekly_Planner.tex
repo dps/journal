@@ -6,10 +6,10 @@
 
 % LAYOUT: Odd Page                          Even Page
 %         Week <N>                             <Month> <Year>
+%         Week Goals                [Notes] || Thursday Day Month(abbr) [Notes]
 %         Monday Day Month(abbr)    [Notes] || Friday Day Month(abbr)   [Notes]
-%         Tuesday Day Month(abbr)   [     ] || Saturday Day Month(abbr) [     ]
-%         Wednesday Day Month(abbr) [     ] || Sunday Day Month(abbr)   [     ]
-%         Thursday Day Month(abbr)  [     ] || Months MiniCals          Summary
+%         Tuesday Day Month(abbr)   [     ] || Saturday& Sunday Day Month(abbr) [  ]
+%         Wednesday Day Month(abbr) [     ] || How did it go?   [     ]
 
 % Settings-----------------------------------------------------------
 
@@ -22,11 +22,21 @@
 %   |<--DayFillerWidthWP-------------------------->|<-DayFillerSepWP->|<--NotesFillerTotWidthWP-->|
 %   |<-HourBondingBoxWP->|<-DayFillerRulerWidthWP->|<-DayFillerSepWP->|<--NotesFillerTotWidthWP-->|
 \newlength{\DayFillerTotWidthWP}
-\setlength{\DayFillerTotWidthWP}{( \textwidth * 2 ) /3}
+\setlength{\DayFillerTotWidthWP}{( \textwidth ) /2}
+\newlength{\DayFillerThirdTotWidthWP}
+\setlength{\DayFillerThirdTotWidthWP}{( \textwidth ) / 3}
+\newlength{\DayFillerSixthTotWidthWP}
+\setlength{\DayFillerSixthTotWidthWP}{( \textwidth ) / 6}
+
 \newlength{\DayFillerSepWP}
 \setlength{\DayFillerSepWP}{1em}
 \newlength{\DayFillerWidthWP}
 \setlength{\DayFillerWidthWP}{\DayFillerTotWidthWP - \DayFillerSepWP}
+\newlength{\DayFillerThirdWidthWP}
+\setlength{\DayFillerThirdWidthWP}{\DayFillerThirdTotWidthWP - \DayFillerSepWP}
+\newlength{\DayFillerSixthWidthWP}
+\setlength{\DayFillerSixthWidthWP}{\DayFillerSixthTotWidthWP - \DayFillerSepWP}
+
 \newlength{\DayFillerRulerWidthWP}
 \setlength{\DayFillerRulerWidthWP}{\DayFillerWidthWP - \HourBondingBoxWP}
 \newlength{\NotesFillerTotWidthWP}
@@ -97,22 +107,22 @@
 	\parbox[t]{\DayFillerTotWidthWP}{\large #1\hrulefill}%
 	\setlength{\unitlength}{1mm}%
 	\begin{picture}(40,8)
-		\put(20,0){\oval[2](40,8)[t]}
+		\put(30,0){\oval[2](60,8)[t]}
 		\put(1,0){\large\ding{50}}
-		\put(36,0){\large\ding{51}}
+		\put(56,0){\large\ding{51}}
 	\end{picture}\hspace{\fill}\par%
 	\DayFillerWP%
 	\vspace{1ex}}
 
 % Week Goals entry in Weekly Planner (left page, top section)
 \newcommand{\WeekGoalsWP}{%
-	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
-	\parbox[t]{\DayFillerTotWidthWP}{\large\WeekGoals\hrulefill}%
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\textwidth}{0.5\baselineskip}}}%
+	\parbox[t]{\textwidth}{\large\WeekGoals\hrulefill}%
 	\setlength{\unitlength}{1mm}%
         \begin{picture}(40,8)
-                \put(20,0){\oval[2](40,8)[t]}
-                \put(1,0){\large{}\ding{50}}
-                \put(36,0){\large\ding{51}}
+    %            \put(20,0){\oval[2](40,8)[t]}
+    %            \put(1,0){\large{}\ding{50}}
+    %            \put(36,0){\large\ding{51}}
         \end{picture}\hspace{\fill}\par%
 	\renewcommand{\arraystretch}{0.55}%
 	\begin{tabular*}{\textwidth}[t]{@{}p{\DayFillerWidthWP}@{\hspace*{\DayFillerSepWP}}p{\NotesFillerTotWidthWP}@{}}%
@@ -139,25 +149,32 @@
 % Notes entry in Weekly Planner (right page, bottom section)
 \newcommand{\NotesWP}{%
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
-	\parbox[t]{\DayFillerTotWidthWP}{\large\Notes}%
+	\parbox[t]{\DayFillerTotWidthWP}{\large\HowGo}%
+	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerTotWidthWP}{0.5\baselineskip}}}%
+	\parbox[t]{\DayFillerTotWidthWP}{\large{}\Notes}%
 	\setlength{\unitlength}{1mm}%
-        \begin{picture}(40,8)
-                %\put(20,0){\oval[2](40,8)[t]}
-                %Something breaks lulu processing, this seems most likely.
-                %\put(0,-1){\large{}\includegraphics{exercise}}
-                \put(0,-1){\large{}Exercise}
-                %\put(30,0){\includegraphics{exercise}}
-        \end{picture}\hspace{\fill}\par%
+    %     \begin{picture}(40,8)
+    %             %\put(20,0){\oval[2](40,8)[t]}
+    %             %Something breaks lulu processing, this seems most likely.
+    %             %\put(0,-1){\large{}\includegraphics{exercise}}
+    %             \put(0,-1){\large{}Exercise}
+    %             %\put(30,0){\includegraphics{exercise}}
+    %     \end{picture}\hspace{\fill}
+    \par%
 	\renewcommand{\arraystretch}{0.55}%
-	\begin{tabular*}{\textwidth}[t]{@{}p{\DayFillerWidthWP}@{\hspace*{\DayFillerSepWP}}p{\NotesFillerTotWidthWP}@{}}%
+	\begin{tabular*}{\textwidth}[t]{@{}p{\DayFillerThirdWidthWP}@{\hspace*{\DayFillerSepWP}}p{\DayFillerSixthWidthWP}@{\hspace*{\DayFillerSepWP}}p{\NotesFillerTotWidthWP}@{}}%
 	% the \color command mangles the spacing, typeset an \vstrut to fix and align with facing page
-	\vstrut{13.5pt}{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & \vstrut{13.5pt}{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} &  \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} &  \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} &  \\
-	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	% \vstrut{13.5pt}{Enjoyed it?\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & \vstrut{13.5pt}{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
+	Enjoyed it & \ding{192}\ding{193}\ding{194}\ding{195}\ding{196} & \\
+	Got stuff done & \ding{192}\ding{193}\ding{194}\ding{195}\ding{196} &  \\
+	Progressed goals & \ding{192}\ding{193}\ding{194}\ding{195}\ding{196} &  \\
+	Learning & \ding{192}\ding{193}\ding{194}\ding{195}\ding{196} & \\
+	%{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} &  \\
+	\vstrut{13.5pt}{{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}}} & & \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & & \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & & \\
+	{\color{WriteBgMain}\rule{\DayFillerWidthWP}{0.5pt}} & & \\
+
 	%                                                     & {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}} \\
 	%\smash[t]{\MonthMiniCalWP{#1}{#2}%
 	%\hspace{\MinicalSepWP}%
@@ -198,7 +215,7 @@
 \newcommand{\RightPageWP}[4]{%
 	\DayWP{\Thursday{} #1}\par
 	\DayWP{\Friday{} #2}\par
-	\DayWP{\Saturday{} #3 \& \Sunday{} #4}\par
+	\DayWP{\Sat{} #3 \& \Sun{} #4}\par
 	\NotesWP{}\vspace*{\fill}%
 	\clearpage}
 
