@@ -18,7 +18,7 @@ import locale
 # User configuration:
 
 # Year to generate for
-year = 2017
+year = 2016
 
 # Locale -- uncomment one only, use utf-8 encoding ONLY
 #
@@ -30,7 +30,8 @@ locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')      # Great Britain
 
 # Define "Week" and "Notes" words, being used in the Weekly Planner
 Week_locale = 'Week'
-Notes_locale = 'How did it go?'
+HowGo_locale = 'How did it go?'
+Notes_locale = 'Notes'
 Week_Goals_locale = 'Week Goals'
 Physical_Activity_locale = 'Exercise'
 
@@ -65,6 +66,7 @@ def write_out_i18n_macros(file):
     i18n_macros_FH.writelines('% Internationalization macros\n\n')
 
     i18n_macros_FH.writelines('\\newcommand{\\Week}{' + Week_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\HowGo}{' + HowGo_locale + '}\n')
     i18n_macros_FH.writelines('\\newcommand{\\Notes}{' + Notes_locale + '}\n')
     i18n_macros_FH.writelines('\\newcommand{\\WeekGoals}{' + Week_Goals_locale + '}\n')
     i18n_macros_FH.writelines('\\newcommand{\\Exercise}{' + Physical_Activity_locale + '}\n')
