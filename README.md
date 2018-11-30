@@ -19,7 +19,7 @@ You'll need `texlive-full` `gnuplot` and `ghostscript` (for `ps2pdf`) installed.
 
 ## Docker (also the easiest way on Mac OS)
 
-Build the `Dockerfile` in this repo.
+Build the `Dockerfile` in this repo (it builds a 4.3 GB file, BTW)
 ```
 docker build -t journallatex .
 ```
