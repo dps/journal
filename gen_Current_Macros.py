@@ -18,7 +18,7 @@ import locale
 # User configuration:
 
 # Year to generate for
-year = 2016
+year = 2019
 
 # Locale -- uncomment one only, use utf-8 encoding ONLY
 #
@@ -128,12 +128,12 @@ def gen_macro_MonthTbl(month, year, *postfix):
         for column in range(7):                         # 7 days a week
 
             end_of_current_day_insert = '} & '          # if in the middle of the table
-            if column == 6 and row != 5:  
+            if column == 6 and row != 5:
                 end_of_current_day_insert = '} \\\\\n'  # if at the end of a row, except last
             if column == 6 and row == 5:
                 end_of_current_day_insert = '}'         # at the end of last row
 
-            if (current_day > 0) and (current_day <= month_length):     # human-readable alignment: insert spaces as required 
+            if (current_day > 0) and (current_day <= month_length):     # human-readable alignment: insert spaces as required
                 if (current_day < 10):                                          # - days 1-9
                     macro_def += ' #1{' + str(current_day) + end_of_current_day_insert
                 else:                                                           # - days 10-28/29/30/31
@@ -168,7 +168,7 @@ def write_out_MonthTbl_macros(year, file):
     MonthTbl_macros_FH.writelines('\\newcommand{\MyYear}{' + str(year) + '}\n\n')
 
     for m in range(1, 13):
-        MonthTbl_macros_FH.writelines(gen_macro_MonthTbl(m, year) + '\n') 
+        MonthTbl_macros_FH.writelines(gen_macro_MonthTbl(m, year) + '\n')
 
     MonthTbl_macros_FH.writelines('% Prev year ----------------------------------------------------------\n\n')
     MonthTbl_macros_FH.writelines('\\newcommand{\MyYearPrev}{' + str(year - 1) + '}\n\n')
@@ -186,7 +186,7 @@ def write_out_MonthTbl_macros(year, file):
 # - contains first 3 days of the week for current month
 # - incomplete rows are filled from previous/next months and marked '#2'
 # - row 6 days are supplied as optional args to '#1' on row 5
-#   (months starting Sat with 31 days or Sun with 30/31 days) 
+#   (months starting Sat with 31 days or Sun with 30/31 days)
 
 def gen_macro_MPMonthLeft(month, year):
 
@@ -206,7 +206,7 @@ def gen_macro_MPMonthLeft(month, year):
         next_month = myCal.monthdayscalendar(year, month + 1)
 
     # macro start
-    macro_def = '\\newcommand{\MP' + month_abbr_C[ month ] + 'Left}[2]{%\n' 
+    macro_def = '\\newcommand{\MP' + month_abbr_C[ month ] + 'Left}[2]{%\n'
 
     # first row, may have days from previous month
     row = 0
@@ -292,7 +292,7 @@ def gen_macro_MPMonthRight(month, year):
             else:
                 macro_def += '#1{' + str(curr_month[row][col]) + end_of_current_day_insert
         macro_def += '\\\\\n'
-    
+
     # last row, special case: days from next month
     row = 4
     end_of_current_day_insert = '} & '
@@ -357,7 +357,7 @@ def write_out_WP_macros(year, file):
         curr_m  = weeks[w][6].month         # current month: from last day-of-week
         other_m = weeks[w][0].month         # month of first day-of-week: current month or previous
 
-        curr_y = weeks[w][6].year           # year of last day-of-week, same as 'year', except maybe last week 
+        curr_y = weeks[w][6].year           # year of last day-of-week, same as 'year', except maybe last week
         other_y = weeks[w][0].year
 
         # Month macros for the mini cals
@@ -418,4 +418,3 @@ write_out_i18n_macros('DYI_i18n.tex')
 write_out_MonthTbl_macros(year, 'DYI_Month_Tables.tex')
 write_out_MP_macros(year, 'DYI_Monthly_Planner_Tables.tex')
 write_out_WP_macros(year, 'DYI_Weekly_Planner_Tables.tex')
-
