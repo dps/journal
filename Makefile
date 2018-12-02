@@ -1,6 +1,7 @@
 MAIN_FILE = DYI_Main
 
 PDFLATEX = pdflatex
+PSTOPDF = ps2pdf
 
 MACRO_GENERATOR = ./gen_Current_Macros.py
 CHARTS_GENERATOR = ./gen_charts.py
@@ -41,7 +42,7 @@ $(FILES_TEX_GEN): $(MACRO_GENERATOR)
 	$(GNUPLOT) $(@:.eps=.gnuplot)
 
 %.pdf : %.eps
-	pstopdf $(@:.pdf=.eps)
+	$(PSTOPDF) $(@:.pdf=.eps)
 
 clean:
 	rm -f $(FILES_TEX:.tex=.dvi)
