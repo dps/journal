@@ -43,15 +43,19 @@
 % * Column types
 \newlength{\WkdayColWidthMinicalMP}
 \setlength{\WkdayColWidthMinicalMP}{\NoteColWidthMP / 7}
-%   - weeekdays
-\newcolumntype{P}{>{\hfill\bfseries\tiny}p{\WkdayColWidthMinicalMP}@{\extracolsep\fill}}
-%   - Saturday (\vstrut is for the benefit of \color)
-\newcolumntype{Q}{>{\hfill\bfseries\tiny\vstrut{0pt}\color{WeekendDay}}p{\WkdayColWidthMinicalMP}@{\extracolsep\fill}}
-%   - Sunday (\vstrut is for the benefit of \color)
-\newcolumntype{R}{>{\hfill\bfseries\tiny\vstrut{0pt}\color{WeekendDay}}p{\WkdayColWidthMinicalMP}}
+% There are 4 types of columns
+% - Column 1 (marked as weekend or weekday depending on week_starts_on_Monday value)
+% This is output to DYI_i18n.tex
+% - Column 2-5 (always weekday)
+\newcolumntype{F}{>{\hfill\bfseries\tiny}p{\WkdayColWidthMinicalMP}@{\extracolsep\fill}}
+% - Column 6 (marked as weekend or weekday depending on week_starts_on_Monday value)
+% This is output to DYI_i18n.tex
+% - Column 7 (always weekend)(\vstrut is for the benefit of \color)
+\newcolumntype{H}{>{\hfill\bfseries\tiny\vstrut{0pt}\color{WeekendDay}}p{\WkdayColWidthMinicalMP}}
+
 % Tabular
 \newcommand{\MonthMiniCalOnMonthlyPlanner}[2]{%
-        \begin{tabular*}{\NoteColWidthMP}[t]{@{}*{5}{P}QR@{}}
+        \begin{tabular*}{\NoteColWidthMP}[t]{@{}E*{4}{F}GH@{}}
 		\multicolumn{7}{>{\columncolor{HeadMainBg}}c}{\scriptsize\vstrut{1.1em}\bfseries\color{white}#1} \\
                 \rowcolor{HeadSubBg}
                 \WkdayTblRow{\hspace*{\fill}}\\
@@ -158,7 +162,7 @@
 	\begin{tabular*}{\textwidth}{NMMO}
 		\rowcolor{HeadMainBgMP}%
 		% \makebox[1em] centers \ding{93} on the gray left vertical bar below, see \NoteColumn
-		\bfseries\vstrut{1.1em}{\color{white}\makebox[1em]{\ding{93}}\ \ding{50}\hfill} & \bfseries\vstrut{1.1em}\color{white}\Monday & \bfseries\vstrut{1.1em}\color{white}\Tuesday & \bfseries\vstrut{1.1em}\color{white}\Wednesday \\
+		\bfseries\vstrut{1.1em}{\color{white}\makebox[1em]{\ding{93}}\ \ding{50}\hfill} & \bfseries\vstrut{1.1em}\color{white}\DayA & \bfseries\vstrut{1.1em}\color{white}\DayB & \bfseries\vstrut{1.1em}\color{white}\DayC \\
 		% insert a dummy row: white, (cant use vspacing on previous \tabularnewline because it will turn colored as previous row)
 		\\[-0.8em]
 		\NoteColumn{#2}{#3}{#4}{#5}
@@ -177,7 +181,7 @@
 
 	\begin{tabular*}{\textwidth}{MMMO}
 		\rowcolor{HeadMainBgMP}
-		\bfseries\vstrut{1.1em}\color{white}\Thursday & \bfseries\vstrut{1.1em}\color{white}\Friday & \bfseries\vstrut{1.1em}\color{white}\Saturday & \bfseries\vstrut{1.1em}\color{white}\Sunday \\
+		\bfseries\vstrut{1.1em}\color{white}\DayD & \bfseries\vstrut{1.1em}\color{white}\DayE & \bfseries\vstrut{1.1em}\color{white}\DayF & \bfseries\vstrut{1.1em}\color{white}\DayG \\
 		% insert a dummy row: white, (cant use vspacing on previous \tabularnewline because it will turn colored as previous row)
 		\\[-0.8em]
 		#1{\CellFormatMP}{\CellFormatMPDisabled}
