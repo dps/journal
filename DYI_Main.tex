@@ -87,15 +87,6 @@
 % Internationalization
 \input{DYI_i18n}
 
-% Weekdays (abbreviated) table row (no // ending)
-% - generates the weekdays header for monthly tables
-%	#1 = macro to apply to name, default nothing
-\newcommand{\WkdayTblRow}[1]{%
-	#1{\Mon} & #1{\Tue} & #1{\Wed} & #1{\Thu} & #1{\Fri} & #1{\Sat} & #1{\Sun}}
-% - as above but condensed to just one letter
-\newcommand{\WkdayTblRowA}[1]{%
-	#1{\MonA} & #1{\TueA} & #1{\WedA} & #1{\ThuA} & #1{\FriA} & #1{\SatA} & #1{\SunA}}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{DYI_Month_Tables.tex}

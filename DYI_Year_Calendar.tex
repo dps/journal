@@ -30,15 +30,18 @@
 % Notes: - using 'tabular*' so use '@{\extracolsep\fill}')
 %        - align to the 0.5em of right (supress the intercolumn space for better control)
 %	 - color affects space (inserts struts in current font), put it after font change
-% - weekday
-\newcolumntype{W}{>{\hfill\normalfont\footnotesize}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}@{\extracolsep\fill}}
-% - Saturday
-\newcolumntype{S}{>{\hfill\normalfont\footnotesize\color{WeekendDay}}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}@{\extracolsep\fill}}
-% - Sunday
-\newcolumntype{Z}{>{\hfill\normalfont\footnotesize\color{WeekendDay}}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}}
+% There are 4 types of columns
+% - Column 1 (marked as weekend or weekday depending on week_starts_on_Monday value)
+% This is output to DYI_i18n.tex
+% - Column 2-5 (always weekday)
+\newcolumntype{B}{>{\hfill\normalfont\footnotesize}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}@{\extracolsep\fill}}
+% - Column 6 (marked as weekend or weekday depending on week_starts_on_Monday value)
+% This is output to DYI_i18n.tex
+% - Column 7 (always weekend)
+\newcolumntype{D}{>{\hfill\normalfont\footnotesize\color{WeekendDay}}p{\WkdayColWidthMonthTblYC}<{\hspace*{0.5em}}}
 
 \newcommand{\MonthTblYC}[1]{%
-	\begin{tabular*}{\MonthTblWidthYC}[t]{@{}*{5}{W}SZ@{}}
+	\begin{tabular*}{\MonthTblWidthYC}[t]{@{}A*{4}{B}CD@{}}
 		\rowcolor{HeadSubBg}
 		\WkdayTblRow{\bfseries\tiny} \\
 		#1
