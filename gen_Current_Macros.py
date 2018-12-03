@@ -1,6 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import locale
+import sys
+import math
+import calendar
+
+import gen_config as cfg
 
 # DIY Calendar
 #
@@ -13,38 +18,6 @@ import locale
 #       - gen_macro_<...>       -- generates a LaTeX macro, page and language independent
 #       - write_out_<...>           -- write out LaTeX files
 #
-# Notes: It is assumed week starts Monday, European convention
-
-# User configuration:
-
-# Year to generate for
-year = 2019
-
-# True if the week starts on Monday (European convention), False if it starts on Sunday.
-week_starts_on_Monday = True
-
-# Locale -- uncomment one only, use utf-8 encoding ONLY
-#
-#locale.setlocale(locale.LC_ALL, 'en_AU.utf-8')      # Australia
-locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')      # Great Britain
-#locale.setlocale(locale.LC_ALL, 'fr_FR.utf-8')      # France
-#locale.setlocale(locale.LC_ALL, 'de_DE.utf-8')      # Deuchland
-#locale.setlocale(locale.LC_ALL, 'es_ES.utf-8')      # Espaniol
-
-# Define "Week" and "Notes" words, being used in the Weekly Planner
-Week_locale = 'Week'
-HowGo_locale = 'How did it go?'
-Notes_locale = 'Notes'
-Week_Goals_locale = 'Week Goals'
-Physical_Activity_locale = 'Exercise'
-
-
-# END user configuration -- do _NOT_ change anything below
-#------------------------------------------------------------------------------
-
-import sys
-import math
-import calendar
 
 #------------------------------------------------------------------------------
 
@@ -68,14 +41,14 @@ def write_out_i18n_macros(file):
     i18n_macros_FH = open(file, 'w')
     i18n_macros_FH.writelines('% Internationalization macros\n\n')
 
-    i18n_macros_FH.writelines('\\newcommand{\\Week}{' + Week_locale + '}\n')
-    i18n_macros_FH.writelines('\\newcommand{\\HowGo}{' + HowGo_locale + '}\n')
-    i18n_macros_FH.writelines('\\newcommand{\\Notes}{' + Notes_locale + '}\n')
-    i18n_macros_FH.writelines('\\newcommand{\\WeekGoals}{' + Week_Goals_locale + '}\n')
-    i18n_macros_FH.writelines('\\newcommand{\\Exercise}{' + Physical_Activity_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\Week}{' + cfg.Week_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\HowGo}{' + cfg.HowGo_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\Notes}{' + cfg.Notes_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\WeekGoals}{' + cfg.Week_Goals_locale + '}\n')
+    i18n_macros_FH.writelines('\\newcommand{\\Exercise}{' + cfg.Physical_Activity_locale + '}\n')
     i18n_macros_FH.writelines('\n')
 
-    if week_starts_on_Monday:
+    if cfg.week_starts_on_Monday:
         weekday_range = range(0,7)
     else:
         weekday_range = range(-1,6)
@@ -86,7 +59,7 @@ def write_out_i18n_macros(file):
         i18n_macros_FH.writelines('\\newcommand{\\' + day_name_C[d] + '}{' + calendar.day_name[d] + '}\n')
     i18n_macros_FH.writelines('\n')
 
-    i18n_macros_FH.writelines('% Weekdays in order based on week_starts_on_Monday\n')
+    i18n_macros_FH.writelines('% Weekdays in order based on cfg.week_starts_on_Monday\n')
     i = ord('A')
     for d in weekday_range:
         # i18n_macros_FH.writelines('\\newcommand{\\' + day_name_C[d] + '}{' + calendar.day_name[d].capitalize() + '}\n')
@@ -121,13 +94,13 @@ def write_out_i18n_macros(file):
     i18n_macros_FH.writelines('% - generates the weekdays header for monthly tables\n')
     i18n_macros_FH.writelines('%	#1 = macro to apply to name, default nothing\n')
     i18n_macros_FH.writelines('\\newcommand{\\WkdayTblRow}[1]{%\n')
-    if week_starts_on_Monday:
+    if cfg.week_starts_on_Monday:
         i18n_macros_FH.writelines('\t#1{\\Mon} & #1{\\Tue} & #1{\\Wed} & #1{\\Thu} & #1{\\Fri} & #1{\\Sat} & #1{\\Sun}}\n')
     else:
         i18n_macros_FH.writelines('\t#1{\\Sun} & #1{\\Mon} & #1{\\Tue} & #1{\\Wed} & #1{\\Thu} & #1{\\Fri} & #1{\\Sat}}\n')
     i18n_macros_FH.writelines('% - as above but condensed to just one letter\n')
     i18n_macros_FH.writelines('\\newcommand{\\WkdayTblRowA}[1]{%\n')
-    if week_starts_on_Monday:
+    if cfg.week_starts_on_Monday:
         i18n_macros_FH.writelines('\t#1{\\MonA} & #1{\\TueA} & #1{\\WedA} & #1{\\ThuA} & #1{\\FriA} & #1{\\SatA} & #1{\\SunA}}\n')
     else:
         i18n_macros_FH.writelines('\t#1{\\SunA} & #1{\\MonA} & #1{\\TueA} & #1{\\WedA} & #1{\\ThuA} & #1{\\FriA} & #1{\\SatA}}\n')
@@ -135,7 +108,7 @@ def write_out_i18n_macros(file):
 
     i18n_macros_FH.writelines('% Column types for monthly calendars.  These are generated so we can support both weeks\n')
     i18n_macros_FH.writelines('% starting on Monday and on Sunday.\n')
-    if week_starts_on_Monday:
+    if cfg.week_starts_on_Monday:
         i18n_macros_FH.writelines('\\newcolumntype{A}{>{\\hfill\\normalfont\\footnotesize}p{\\WkdayColWidthMonthTblYC}<{\\hspace*{0.5em}}@{\\extracolsep\\fill}}\n')
         i18n_macros_FH.writelines('\\newcolumntype{C}{>{\\hfill\\normalfont\\footnotesize\\color{WeekendDay}}p{\\WkdayColWidthMonthTblYC}<{\\hspace*{0.5em}}@{\\extracolsep\\fill}}\n')
         i18n_macros_FH.writelines('\\newcolumntype{E}{>{\\hfill\\bfseries\\tiny}p{\\WkdayColWidthMinicalMP}@{\\extracolsep\\fill}}\n')
@@ -167,7 +140,7 @@ def gen_macro_MonthTbl(month, year, *postfix):
     macro_def = '\\newcommand{\MonthTbl' + month_abbr_C[ month ] + postfix[0] + '}[1][\hfill]{%\n'
 
     current_day = - day_of_week_month_start
-    if week_starts_on_Monday:
+    if cfg.week_starts_on_Monday:
         current_day = current_day + 1
     elif current_day == -6:
         # This would have caused a full empty row at the top of a month
@@ -240,7 +213,7 @@ def gen_macro_MPMonthLeft(month, year):
     day_of_week_month_start  = calendar.monthrange(year, month)[0]
     month_length             = calendar.monthrange(year, month)[1]
 
-    if not week_starts_on_Monday:
+    if not cfg.week_starts_on_Monday:
         day_of_week_month_start = (day_of_week_month_start + 1) % 7
 
     # generate monthly calendar tables for current, previous and next
@@ -258,7 +231,7 @@ def gen_macro_MPMonthLeft(month, year):
 
     # first row, may have days from previous month
     row = 0
-    for col in range(3):                        # Sun?, Mon, Tue, Wed? (depends on week_starts_on_Monday)
+    for col in range(3):                        # Sun?, Mon, Tue, Wed? (depends on cfg.week_starts_on_Monday)
         day = col - day_of_week_month_start + 1
         if day <= 0:
             macro_def += '& #2{' + str(prev_month_days + day) + '} ' # days, max range 25-31, prev month
@@ -268,7 +241,7 @@ def gen_macro_MPMonthLeft(month, year):
 
     # second to 4th rows
     for row in range(1,4):
-        for col in range(3):                                                            # Sun?, Mon, Tue, Wed? (depends on week_starts_on_Monday)
+        for col in range(3):                                                            # Sun?, Mon, Tue, Wed? (depends on cfg.week_starts_on_Monday)
             cal_day = row * 7 + col
             day = cal_day - day_of_week_month_start + 1
             if (day < 10):                                                              # human readable pretty printing
@@ -309,7 +282,7 @@ def gen_macro_MPMonthRight(month, year):
     day_of_week_month_start  = calendar.monthrange(year, month)[0]
     month_length             = calendar.monthrange(year, month)[1]
 
-    if not week_starts_on_Monday:
+    if not cfg.week_starts_on_Monday:
         day_of_week_month_start = (day_of_week_month_start + 1) % 7
 
     # generate monthly calendar tables for current, previous and next
@@ -328,7 +301,7 @@ def gen_macro_MPMonthRight(month, year):
     # first row, may have days from previous month
     row = 0
     end_of_current_day_insert = '} & '          # if in the midddle of the table
-    for col in range(3,7):                      # Wed? Thu, Fri, Sat, Sun? (depends on week_starts_on_Monday)
+    for col in range(3,7):                      # Wed? Thu, Fri, Sat, Sun? (depends on cfg.week_starts_on_Monday)
         if col == 6:
             end_of_current_day_insert = '} '    # at end of row
         day = col - day_of_week_month_start + 1
@@ -341,7 +314,7 @@ def gen_macro_MPMonthRight(month, year):
     # second to 4th row
     for row in range(1,4):
         end_of_current_day_insert = '} & '
-        for col in range(3,7):                  # Wed? Thu, Fri, Sat, Sun? (depends on week_starts_on_Monday)
+        for col in range(3,7):                  # Wed? Thu, Fri, Sat, Sun? (depends on cfg.week_starts_on_Monday)
             cal_day = row * 7 + col
             day = cal_day - day_of_week_month_start + 1
             if col == 6:
@@ -355,7 +328,7 @@ def gen_macro_MPMonthRight(month, year):
     # last row, special case: days from next month
     row = 4
     end_of_current_day_insert = '} & '
-    for col in range(3,7):                      # Wed? Thu, Fri, Sat, Sun? (depends on week_starts_on_Monday)
+    for col in range(3,7):                      # Wed? Thu, Fri, Sat, Sun? (depends on cfg.week_starts_on_Monday)
         cal_day = row * 7 + col
         day = cal_day - day_of_week_month_start + 1
         if col == 6:
@@ -476,6 +449,6 @@ def write_out_WP_macros(year, file):
 # Main
 
 write_out_i18n_macros('DYI_i18n.tex')
-write_out_MonthTbl_macros(year, 'DYI_Month_Tables.tex')
-write_out_MP_macros(year, 'DYI_Monthly_Planner_Tables.tex')
-write_out_WP_macros(year, 'DYI_Weekly_Planner_Tables.tex')
+write_out_MonthTbl_macros(cfg.year, 'DYI_Month_Tables.tex')
+write_out_MP_macros(cfg.year, 'DYI_Monthly_Planner_Tables.tex')
+write_out_WP_macros(cfg.year, 'DYI_Weekly_Planner_Tables.tex')

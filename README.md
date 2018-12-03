@@ -18,7 +18,7 @@ A recent prebuilt PDF is available [here](http://singleton.io/2019.pdf).
 You'll need `texlive-full` `gnuplot` and `ghostscript` (for `ps2pdf`) installed. On Mac OS [MacTeX](http://www.tug.org/mactex/) works and you can install the rest with Homebrew. I recommend using the docker instructions though as Mac OS upgrades often seem to break MacTeX and gnuplot.
 
 ## Build
-* Update the year in [gen_Current_Macros.py](https://github.com/dps/journal/blob/master/gen_Current_Macros.py#L21) to the year you want to make a journal for.
+* Update the year in [gen_config.py](https://github.com/dps/journal/blob/master/gen_config.py#L6) to the year you want to make a journal for.
 * Run `make` in the root directory of this repo.
 
 ## Docker (also the easiest way on Mac OS)
