@@ -26,7 +26,11 @@ GNUPLOT_TEX = 52wks.tex \
 GNUPLOT_INTERMEDIATE = 52wks.eps \
 					   daily.eps
 GNUPLOT_OUTPUT = 52wks.pdf \
-				 daily.pdf
+				 daily.pdf \
+				 52wks.tex \
+				 daily.tex \
+				 52wks-eps-converted-to.pdf \
+				 daily-eps-converted-to.pdf
 GNUPLOT = gnuplot -c
 
 DEFAULT: $(FILES_TEX) $(FILES_TEX_GEN) $(GNUPLOT_TEX) $(GNUPLOT_OUTPUT) $(CHARTS_TEX_GEN)
@@ -38,11 +42,10 @@ $(CHARTS_TEX_GEN): $(CHARTS_GENERATOR)
 $(FILES_TEX_GEN): $(MACRO_GENERATOR)
 	$(MACRO_GENERATOR)
 
-%.eps : %.gnuplot
-	$(GNUPLOT) $(@:.eps=.gnuplot)
+$(GNUPLOT_OUTPUT): $(GNUPLOT_INPUT)
 
-%.pdf : %.eps
-	$(PSTOPDF) $(@:.pdf=.eps)
+%.tex: %.gnuplot
+	$(GNUPLOT) $(@:.tex=.gnuplot)
 
 clean:
 	rm -f $(FILES_TEX:.tex=.dvi)
