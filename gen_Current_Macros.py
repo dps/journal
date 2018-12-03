@@ -6,6 +6,7 @@ import math
 import calendar
 
 import gen_config as cfg
+import gen_holidays as holidays
 
 # DIY Calendar
 #
@@ -424,6 +425,8 @@ def write_out_WP_macros(year, file):
         left_pg_macro  = '\LeftPageWP{' + str(w) + '}'
         for d in range(0,3):
             left_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
+        for d in range(0,3):
+            left_pg_macro += '{' + '\\\\'.join(holidays.holidays[weeks[w][d]]) + '}'
 
         right_pg_header = '\RightPageHeaderWP{'
 
@@ -437,6 +440,11 @@ def write_out_WP_macros(year, file):
         right_pg_macro = '\RightPageWP'
         for d in range(3,7):
             right_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
+        for d in range(3,6):
+            if d == 5:
+                right_pg_macro += '{' + '\\\\'.join(holidays.holidays[weeks[w][d]] + holidays.holidays[weeks[w][6]]) + '}'
+            else:
+                right_pg_macro += '{' + '\\\\'.join(holidays.holidays[weeks[w][d]]) + '}'
         #right_pg_macro += '{' + prev_month_name + '}' + '{' + prev_month_table + '}'
         #right_pg_macro += '{' + curr_month_name + '}' + '{' + curr_month_table + '}'
         #right_pg_macro += '{' + next_month_name + '}' + '{' + next_month_table + '}'

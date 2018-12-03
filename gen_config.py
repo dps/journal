@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import locale
+import gen_holidays as holidays
 
 # Year to generate for
 year = 2019
@@ -22,4 +23,8 @@ HowGo_locale = 'How did it go?'
 Notes_locale = 'Notes'
 Week_Goals_locale = 'Week Goals'
 Physical_Activity_locale = 'Exercise'
+
+# What holidays should be built in to the calendar?
+holidays.add_holiday(year, 1, 1, "New Year's Day")
+holidays.add_holiday(year + 1, 1, 1, "New Year's Day")
 
