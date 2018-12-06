@@ -68,14 +68,16 @@
         {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}}
 % - then fill, with hour intervals
 \newcommand{\DayFillerWP}[1]{%
-	\DayFillerRowWP{\ding{46}}{#1}\break%
-	\DayFillerRowWP{}{}\break%
-	\DayFillerRowWP{}{}\break%
-	\DayFillerRowWP{}{}\break%
-	\DayFillerRowWP{}{}\break%
-	\DayFillerRowWP{}{}\break%
-	\DayFillerRowWP{}{}\break%
-	\DayFillerRowWP{}{}}
+    \setsepchar{\\}%
+    \readlist*\parsed{#1\\\\\\\\\\\\\\}% Need enough separators to get all of our lines
+	\DayFillerRowWP{\ding{46}}{\parsed[1]}\break%
+	\DayFillerRowWP{}{\parsed[2]}\break%
+	\DayFillerRowWP{}{\parsed[3]}\break%
+	\DayFillerRowWP{}{\parsed[4]}\break%
+	\DayFillerRowWP{}{\parsed[5]}\break%
+	\DayFillerRowWP{}{\parsed[6]}\break%
+	\DayFillerRowWP{}{\parsed[7]}\break%
+	\DayFillerRowWP{}{\parsed[8]}}
 
 % Monthly minicalendars on Weekly Planner
 % Column types I,J,K
