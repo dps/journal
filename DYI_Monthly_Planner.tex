@@ -59,7 +59,7 @@
 		\multicolumn{7}{>{\columncolor{HeadMainBg}}c}{\scriptsize\vstrut{1.1em}\bfseries\color{white}#1} \\
                 \rowcolor{HeadSubBg}
                 \WkdayTblRow{\hspace*{\fill}}\\
-                #2
+                #2{\hfill}{\color{WeekendDay}\hfill}
         \end{tabular*}}
 
 % Notes column on odd page in Monthly Planner
@@ -102,51 +102,46 @@
 }
 
 % Cell format on Monthly Planner, pure play :)
-% - template: #1 - color for day number and left rule, #2 - date number
-\newcommand{\CellFormatMPTemplate}[2]{%
-	% gray bar at the top, ~ half row width
+% - template: #1 - color for day number and left rule, #2 - date number, #3 - event text to show on date
+\newcommand{\CellFormatMPTemplate}[3]{%
+	% gray bar at the top, ~ half row height
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
 	% thin rule to the left almost full heigh 
 	{\color{#1}\rule[-6\baselineskip]{\arrayrulewidth}{6\baselineskip}}%
-	% right-aligned date numbers
-	\makebox[2.7ex]{\hspace{\fill}{\color{#1}#2}}%
-	% the column is centered so force the previous box to the left
-	\hspace*{\fill}%
-	\break%
+	% date numbers and event text
+	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#2}\\\scriptsize#3}%
 	% white last row, makes the left sided line open/incomplete (does not join the one below)
 	\vstrut{1em}}
 % this one for cramming 2 days in one table cell, for months spanning 6 rows
-% - template: #1 - color for day number and left rule, #2 - first date number, #3 second date number
-\newcommand{\CellFormatMPTemplateTwo}[3]{%
-	% gray bar at the top, ~ half row width
+% - template: #1 - color for day number and left rule, #2 - first date number, #3 second date number,
+% -  #4 first date event text, #5 second date event text
+\newcommand{\CellFormatMPTemplateTwo}[5]{%
+	% gray bar at the top, ~ half row height
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
 	% thin rule to the left almost full heigh 
 	{\color{#1}\rule[-2.5\baselineskip]{\arrayrulewidth}{2.5\baselineskip}}%
-	% right-aligned date numbers
-	\makebox[2.7ex]{\hspace{\fill}{\color{#1}#2}}%
-	% the column is centered so force the previous box to the left
-	\hspace*{\fill}%
+	% date numbers and event text
+	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#2}\\\scriptsize#4}%
 	\break%
 	% white last row, makes the left sided line open/incomplete (does not join the one below)
 	\vstrut{1em}%
 	% repeat
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
 	{\color{#1}\rule[-2.5\baselineskip]{\arrayrulewidth}{2.5\baselineskip}}%
-	\makebox[2.7ex]{\hspace{\fill}{\color{#1}#3}}%
-	\hspace*{\fill}%
+	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#3}\\\scriptsize#5}%
 	\break%
 	\vstrut{1em}}
 
 % for days in current month
 % the optional argument is for months spanning 6 rows
-\newcommand{\CellFormatMP}[2][]{%
+\newcommand{\CellFormatMP}[4][]{%
 	\ifthenelse{\equal{#1}{}}%
-		{\CellFormatMPTemplate{Black}{#2}}%
-		{\CellFormatMPTemplateTwo{Black}{#2}{#1}}}
+		{\CellFormatMPTemplate{Black}{#2}{#3}}%
+		{\CellFormatMPTemplateTwo{Black}{#2}{#1}{#3}{#4}}}
 
 % for days in previous/next month
-\newcommand{\CellFormatMPDisabled}[1]{%
-	\CellFormatMPTemplate{DayMPDisabled}{#1}}
+\newcommand{\CellFormatMPDisabled}[2]{%
+	\CellFormatMPTemplate{DayMPDisabled}{#1}{#2}}
 
 % WARNING: The \vstrut in the heading for \MPLeftPage and \MPRightPage ensure enough space
 %          (and proper alignmeng of the following table) when accented characters are used

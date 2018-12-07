@@ -4,6 +4,8 @@ PDFLATEX = pdflatex
 PSTOPDF = ps2pdf
 
 MACRO_GENERATOR = ./gen_Current_Macros.py
+MACRO_INPUTES = gen_config.py           \
+                gen_events.py
 CHARTS_GENERATOR = ./gen_charts.py
 
 FILES_TEX = DYI_Main.tex                \
@@ -39,7 +41,7 @@ DEFAULT: $(FILES_TEX) $(FILES_TEX_GEN) $(GNUPLOT_TEX) $(GNUPLOT_OUTPUT) $(CHARTS
 $(CHARTS_TEX_GEN): $(CHARTS_GENERATOR)
 	$(CHARTS_GENERATOR)
 
-$(FILES_TEX_GEN): $(MACRO_GENERATOR)
+$(FILES_TEX_GEN): $(MACRO_GENERATOR) $(MACRO_INPUTES)
 	$(MACRO_GENERATOR)
 
 $(GNUPLOT_OUTPUT): $(GNUPLOT_INPUT)

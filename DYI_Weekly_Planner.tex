@@ -56,8 +56,8 @@
 % - one row:
 %   <hour>________<-sep->___
 %   (#1 is the current hour, right aligned inside a makebox,  also using a vstrut to define heigh
-\newcommand{\DayFillerRowWP}[1]{%
-	\makebox[\HourBondingBoxWP]{\hspace{\fill}#1\hspace{0.5em}}\vstrut{11.5pt}{\color{WriteBgMain}\rule{\DayFillerRulerWidthWP}{0.5pt}}%
+\newcommand{\DayFillerRowWP}[2]{%
+	\makebox[\HourBondingBoxWP]{\hspace{\fill}#1\hspace{0.5em}}\vstrut{11.5pt}{\color{Black}\raisebox{.2ex}{\rlap{#2}}\color{WriteBgMain}\rule{\DayFillerRulerWidthWP}{0.5pt}}%
 	\hspace*{\DayFillerSepWP}%
 	{\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}}
 % - as above but no <hour>
@@ -67,15 +67,17 @@
         \hspace*{\DayFillerSepWP}%
         {\color{WriteBgMain}\rule{\NotesFillerTotWidthWP}{0.5pt}}}
 % - then fill, with hour intervals
-\newcommand{\DayFillerWP}{%
-	\DayFillerRowWP{\ding{46}}\break%
-	\DayFillerRowWP{}\break%
-	\DayFillerRowWP{}\break%
-	\DayFillerRowWP{}\break%
-	\DayFillerRowWP{}\break%
-	\DayFillerRowWP{}\break%
-	\DayFillerRowWP{}\break%
-	\DayFillerRowWP{}}
+\newcommand{\DayFillerWP}[1]{%
+    \setsepchar{\\}%
+    \readlist*\parsed{#1\\\\\\\\\\\\\\}% Need enough separators to get all of our lines
+	\DayFillerRowWP{\ding{46}}{\parsed[1]}\break%
+	\DayFillerRowWP{}{\parsed[2]}\break%
+	\DayFillerRowWP{}{\parsed[3]}\break%
+	\DayFillerRowWP{}{\parsed[4]}\break%
+	\DayFillerRowWP{}{\parsed[5]}\break%
+	\DayFillerRowWP{}{\parsed[6]}\break%
+	\DayFillerRowWP{}{\parsed[7]}\break%
+	\DayFillerRowWP{}{\parsed[8]}}
 
 % Monthly minicalendars on Weekly Planner
 % Column types I,J,K
@@ -97,7 +99,7 @@
 	\end{tabular*}}}
 
 % Day entry in Weekly Planner
-\newcommand{\DayWP}[1]{%
+\newcommand{\DayWP}[2]{%
 	% gray shading bar
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayFillerWidthWP}{0.5\baselineskip}}}%
 	% Day (e.g. Monday 1 Jan)
@@ -111,7 +113,7 @@
 		\put(1,0){\large\ding{50}}
 		\put(56,0){\large\ding{51}}
 	\end{picture}\hspace{\fill}\par%
-	\DayFillerWP%
+	\DayFillerWP{#2}%
 	\vspace{1ex}}
 
 % Week Goals entry in Weekly Planner (left page, top section)
@@ -188,13 +190,13 @@
 	\end{tabular*}}
 
 % Left page
-\newcommand{\LeftPageWP}[4]{%
+\newcommand{\LeftPageWP}[7]{%
 	{\bfseries\Large\Week{} #1\vstrut[-0.2em]{1.2em}}\par
 	\nointerlineskip
 	\WeekGoalsWP\par
-	\DayWP{\Monday{} #2}\par
-	\DayWP{\Tuesday{} #3}\par
-	\DayWP{\Wednesday{} #4}\vspace*{\fill}%
+	\DayWP{\Monday{} #2}{#5}\par
+	\DayWP{\Tuesday{} #3}{#6}\par
+	\DayWP{\Wednesday{} #4}{#7}\vspace*{\fill}%
 	\clearpage}
 
 % \newcommand{\LeftPageWP}[4]{%
@@ -212,10 +214,10 @@
 	{\hspace*{\fill}\bfseries\Large #1\vstrut[-0.2em]{1.2em}}\par%
 	\nointerlineskip}
 
-\newcommand{\RightPageWP}[4]{%
-	\DayWP{\Thursday{} #1}\par
-	\DayWP{\Friday{} #2}\par
-	\DayWP{\Sat{} #3 \& \Sun{} #4}\par
+\newcommand{\RightPageWP}[7]{%
+	\DayWP{\Thursday{} #1}{#5}\par
+	\DayWP{\Friday{} #2}{#6}\par
+	\DayWP{\Sat{} #3 \& \Sun{} #4}{#7}\par
 	\NotesWP{}\vspace*{\fill}%
 	\clearpage}
 
