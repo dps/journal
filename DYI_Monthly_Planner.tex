@@ -109,7 +109,7 @@
 	% thin rule to the left almost full heigh 
 	{\color{#1}\rule[-6\baselineskip]{\arrayrulewidth}{6\baselineskip}}%
 	% date numbers and holiday text
-	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}#2\\#3}%
+	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#2}\\\scriptsize#3}%
 	% white last row, makes the left sided line open/incomplete (does not join the one below)
 	\vstrut{1em}}
 % this one for cramming 2 days in one table cell, for months spanning 6 rows
@@ -121,14 +121,14 @@
 	% thin rule to the left almost full heigh 
 	{\color{#1}\rule[-2.5\baselineskip]{\arrayrulewidth}{2.5\baselineskip}}%
 	% date numbers and holiday text
-	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}#2\\#4}%
+	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#2}\\\scriptsize#4}%
 	\break%
 	% white last row, makes the left sided line open/incomplete (does not join the one below)
 	\vstrut{1em}%
 	% repeat
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
 	{\color{#1}\rule[-2.5\baselineskip]{\arrayrulewidth}{2.5\baselineskip}}%
-	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}#3\\#5}%
+	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#3}\\\scriptsize#5}%
 	\break%
 	\vstrut{1em}}
 
