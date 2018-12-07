@@ -139,7 +139,7 @@ def gen_macro_MonthTbl(month, year, *postfix):
         return ''
 
     # macro def start
-    macro_def = '\\newcommand{\MonthTbl' + month_abbr_C[ month ] + postfix[0] + '}[1][\hfill]{%\n'
+    macro_def = '\\newcommand{\MonthTbl' + month_abbr_C[ month ] + postfix[0] + '}[2]{%\n'
 
     current_day = - day_of_week_month_start
     if cfg.week_starts_on_Monday:
@@ -158,13 +158,18 @@ def gen_macro_MonthTbl(month, year, *postfix):
 
             if (current_day > 0) and (current_day <= month_length):     # human-readable alignment: insert spaces as required
                 if (current_day < 10):                                          # - days 1-9
-                    macro_def += ' #1{' + str(current_day) + end_of_current_day_insert
+                    spacer = ' '
                 else:                                                           # - days 10-28/29/30/31
-                    macro_def += '#1{' + str(current_day) + end_of_current_day_insert
+                    spacer = ''
+                if sum([i[1] for i in events.events[datetime.date(year, month, current_day)]]):
+                    func = '#2{'	# Day has a holiday, draw it in the greyed out style
+                else:
+                    func = '#1{'
+                macro_def += spacer + func + str(current_day) + end_of_current_day_insert
             else:                                                               # - no days
                 macro_def += '  #1{' + end_of_current_day_insert
 
-            current_day = current_day + 1
+            current_day += 1
 
     # macro def end
     macro_def += '}\n'
@@ -205,7 +210,7 @@ def write_out_MonthTbl_macros(year, file):
 
 
 def gen_MPMonthEvents(day, month, year, max_lines):
-    return '\\\\'.join(events.events[datetime.date(year, month, day)][:max_lines])
+    return '\\\\'.join([i[0] for i in events.events[datetime.date(year, month, day)][:max_lines]])
 
 #--------------------------------------------------------------------
 # generate the \MP<month>Left macro for given month and year
@@ -466,7 +471,7 @@ def write_out_WP_macros(year, file):
         for d in range(0,3):
             left_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
         for d in range(0,3):
-            left_pg_macro += '{' + '\\\\'.join(events.events[weeks[w][d]]) + '}'
+            left_pg_macro += '{' + '\\\\'.join([i[0] for i in events.events[weeks[w][d]]]) + '}'
 
         right_pg_header = '\RightPageHeaderWP{'
 
@@ -482,9 +487,9 @@ def write_out_WP_macros(year, file):
             right_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
         for d in range(3,6):
             if d == 5:
-                right_pg_macro += '{' + '\\\\'.join(events.events[weeks[w][d]] + events.events[weeks[w][6]]) + '}'
+                right_pg_macro += '{' + '\\\\'.join([i[0] for i in (events.events[weeks[w][d]] + events.events[weeks[w][6]])]) + '}'
             else:
-                right_pg_macro += '{' + '\\\\'.join(events.events[weeks[w][d]]) + '}'
+                right_pg_macro += '{' + '\\\\'.join([i[0] for i in events.events[weeks[w][d]]]) + '}'
         #right_pg_macro += '{' + prev_month_name + '}' + '{' + prev_month_table + '}'
         #right_pg_macro += '{' + curr_month_name + '}' + '{' + curr_month_table + '}'
         #right_pg_macro += '{' + next_month_name + '}' + '{' + next_month_table + '}'

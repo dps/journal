@@ -25,6 +25,8 @@ Week_Goals_locale = 'Week Goals'
 Physical_Activity_locale = 'Exercise'
 
 # What events should be built in to the calendar?
-events.add_event(year, 1, 1, "New Year's Day")
-events.add_event(year + 1, 1, 1, "New Year's Day")
+# Pass in the year, month, day, event name, and True if the day is a holiday
+# and should be greyed out on the calendar
+events.add_event(year, 1, 1, "New Year's Day", True)
+events.add_event(year + 1, 1, 1, "New Year's Day", True)
 
