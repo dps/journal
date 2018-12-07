@@ -5,7 +5,7 @@ PSTOPDF = ps2pdf
 
 MACRO_GENERATOR = ./gen_Current_Macros.py
 MACRO_INPUTES = gen_config.py           \
-                gen_holidays.py
+                gen_events.py
 CHARTS_GENERATOR = ./gen_charts.py
 
 FILES_TEX = DYI_Main.tex                \

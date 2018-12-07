@@ -7,7 +7,7 @@ import calendar
 import datetime
 
 import gen_config as cfg
-import gen_holidays as holidays
+import gen_events as events
 
 # DIY Calendar
 #
@@ -204,8 +204,8 @@ def write_out_MonthTbl_macros(year, file):
         MonthTbl_macros_FH.writelines(gen_macro_MonthTbl(m, year+1, 'Next') + '\n')
 
 
-def gen_MPMonthHolidays(day, month, year, max_lines):
-    return '\\\\'.join(holidays.holidays[datetime.date(year, month, day)][:max_lines])
+def gen_MPMonthEvents(day, month, year, max_lines):
+    return '\\\\'.join(events.events[datetime.date(year, month, day)][:max_lines])
 
 #--------------------------------------------------------------------
 # generate the \MP<month>Left macro for given month and year
@@ -246,10 +246,10 @@ def gen_macro_MPMonthLeft(month, year):
                 temp_month = 12
                 temp_year -= 1
             macro_def += '& #2{' + str(day) + '}'   # days, max range 25-31, prev month
-            macro_def += '{' + gen_MPMonthHolidays(day, temp_month, temp_year, 5) + '}{} '
+            macro_def += '{' + gen_MPMonthEvents(day, temp_month, temp_year, 8) + '}{} '
         else:
             macro_def += '&  #1{' + str(day) + '}'  # days, max range 1-7, curr month
-            macro_def += '{' + gen_MPMonthHolidays(day, month, year, 5) + '}{} '
+            macro_def += '{' + gen_MPMonthEvents(day, month, year, 8) + '}{} '
     macro_def += '\\\\\n'
 
     # second to 4th rows
@@ -261,7 +261,7 @@ def gen_macro_MPMonthLeft(month, year):
                 macro_def += '&  #1{' + str(day) + '}'
             else:
                 macro_def += '& #1{' + str(day) + '}'
-            macro_def += '{' + gen_MPMonthHolidays(day, month, year, 5) + '}{} '
+            macro_def += '{' + gen_MPMonthEvents(day, month, year, 8) + '}{} '
         macro_def += '\\\\\n'
 
     # last row, two special cases: days from next month and overflows (sixth_row)
@@ -280,7 +280,7 @@ def gen_macro_MPMonthLeft(month, year):
                 temp_month = 1
                 temp_year += 1
             macro_def += '&  #2{' + str(day) + '}'
-            macro_def += '{' + gen_MPMonthHolidays(day, temp_month, temp_year, 5) + '}{' + end_of_current_day_insert
+            macro_def += '{' + gen_MPMonthEvents(day, temp_month, temp_year, 8) + '}{' + end_of_current_day_insert
         else:
             # month spanning on the sixth row ? pass the day+7 as optional arg to #1
             sixth_row_insert = ''
@@ -288,9 +288,10 @@ def gen_macro_MPMonthLeft(month, year):
             dayRow6 = cal_day - day_of_week_month_start + 1
             if dayRow6 <= month_length:
                 sixth_row_insert = '[' + str(dayRow6) + ']'
-                end_of_current_day_insert = gen_MPMonthHolidays(dayRow6, month, year, 1) + end_of_current_day_insert
+                end_of_current_day_insert = gen_MPMonthEvents(dayRow6, month, year, 2) + end_of_current_day_insert
             macro_def += '& #1' + sixth_row_insert + '{' + str(day) + '}'
-            macro_def += '{' + gen_MPMonthHolidays(day, month, year, 1) + '}{' + end_of_current_day_insert
+            macro_def += '{' + gen_MPMonthEvents(day, month, year, 2) + '}{' + end_of_current_day_insert
+            end_of_current_day_insert = '} '
 
     # macro end
     macro_def = macro_def + '}\n'
@@ -336,10 +337,10 @@ def gen_macro_MPMonthRight(month, year):
                 temp_month = 12
                 temp_year -= 1
             macro_def += '#2{' + str(day) + '}'  # days from prev month: possible range 25-31,
-            macro_def += '{' + gen_MPMonthHolidays(day, temp_month, temp_year, 5) + '}{' + end_of_current_day_insert
+            macro_def += '{' + gen_MPMonthEvents(day, temp_month, temp_year, 8) + '}{' + end_of_current_day_insert
         else:
             macro_def += ' #1{' + str(day) + '}'                   # days from curr month: possible range 1-7
-            macro_def += '{' + gen_MPMonthHolidays(day, month, year, 5) + '}{' + end_of_current_day_insert
+            macro_def += '{' + gen_MPMonthEvents(day, month, year, 8) + '}{' + end_of_current_day_insert
     macro_def += '\\\\\n'
 
     # second to 4th row
@@ -354,7 +355,7 @@ def gen_macro_MPMonthRight(month, year):
                 macro_def += ' #1{' + str(day) + '}'
             else:
                 macro_def += '#1{' + str(day) + '}'
-            macro_def += '{' + gen_MPMonthHolidays(day, month, year, 5) + '}{' + end_of_current_day_insert
+            macro_def += '{' + gen_MPMonthEvents(day, month, year, 8) + '}{' + end_of_current_day_insert
         macro_def += '\\\\\n'
 
     # last row, special case: days from next month
@@ -373,10 +374,10 @@ def gen_macro_MPMonthRight(month, year):
                 temp_month = 1
                 temp_year += 1
             macro_def += ' #2{' + str(day) + '}'
-            macro_def += '{' + gen_MPMonthHolidays(day, temp_month, temp_year, 5) + '}{' + end_of_current_day_insert
+            macro_def += '{' + gen_MPMonthEvents(day, temp_month, temp_year, 8) + '}{' + end_of_current_day_insert
         else:
             macro_def += '#1' + '{' + str(day) + '}'
-            macro_def += '{' + gen_MPMonthHolidays(day, month, year, 5) + '}{' + end_of_current_day_insert
+            macro_def += '{' + gen_MPMonthEvents(day, month, year, 8) + '}{' + end_of_current_day_insert
 
     # macro end
     macro_def = macro_def + '}\n'
@@ -465,7 +466,7 @@ def write_out_WP_macros(year, file):
         for d in range(0,3):
             left_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
         for d in range(0,3):
-            left_pg_macro += '{' + '\\\\'.join(holidays.holidays[weeks[w][d]]) + '}'
+            left_pg_macro += '{' + '\\\\'.join(events.events[weeks[w][d]]) + '}'
 
         right_pg_header = '\RightPageHeaderWP{'
 
@@ -481,9 +482,9 @@ def write_out_WP_macros(year, file):
             right_pg_macro += '{' + str(weeks[w][d].day) + ' ' + calendar.month_abbr[weeks[w][d].month] + '}'
         for d in range(3,6):
             if d == 5:
-                right_pg_macro += '{' + '\\\\'.join(holidays.holidays[weeks[w][d]] + holidays.holidays[weeks[w][6]]) + '}'
+                right_pg_macro += '{' + '\\\\'.join(events.events[weeks[w][d]] + events.events[weeks[w][6]]) + '}'
             else:
-                right_pg_macro += '{' + '\\\\'.join(holidays.holidays[weeks[w][d]]) + '}'
+                right_pg_macro += '{' + '\\\\'.join(events.events[weeks[w][d]]) + '}'
         #right_pg_macro += '{' + prev_month_name + '}' + '{' + prev_month_table + '}'
         #right_pg_macro += '{' + curr_month_name + '}' + '{' + curr_month_table + '}'
         #right_pg_macro += '{' + next_month_name + '}' + '{' + next_month_table + '}'

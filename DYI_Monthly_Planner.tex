@@ -102,25 +102,25 @@
 }
 
 % Cell format on Monthly Planner, pure play :)
-% - template: #1 - color for day number and left rule, #2 - date number, #3 - holidays/text to show on date
+% - template: #1 - color for day number and left rule, #2 - date number, #3 - event text to show on date
 \newcommand{\CellFormatMPTemplate}[3]{%
 	% gray bar at the top, ~ half row height
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
 	% thin rule to the left almost full heigh 
 	{\color{#1}\rule[-6\baselineskip]{\arrayrulewidth}{6\baselineskip}}%
-	% date numbers and holiday text
+	% date numbers and event text
 	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#2}\\\scriptsize#3}%
 	% white last row, makes the left sided line open/incomplete (does not join the one below)
 	\vstrut{1em}}
 % this one for cramming 2 days in one table cell, for months spanning 6 rows
 % - template: #1 - color for day number and left rule, #2 - first date number, #3 second date number,
-% -  #4 first date holidays/text, #5 second date holidays/text
+% -  #4 first date event text, #5 second date event text
 \newcommand{\CellFormatMPTemplateTwo}[5]{%
 	% gray bar at the top, ~ half row height
 	\makebox[0pt][l]{\smash[b]{\color{WriteBgSec}\rule[0.4\baselineskip]{\DayColWidthMP}{0.5\baselineskip}}}%
 	% thin rule to the left almost full heigh 
 	{\color{#1}\rule[-2.5\baselineskip]{\arrayrulewidth}{2.5\baselineskip}}%
-	% date numbers and holiday text
+	% date numbers and event text
 	\hspace{1ex}\parbox[t]{\DayColWidthMP-1.5ex}{\color{#1}\makebox[1.7ex][r]{#2}\\\scriptsize#4}%
 	\break%
 	% white last row, makes the left sided line open/incomplete (does not join the one below)
