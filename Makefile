@@ -1,26 +1,22 @@
 MAIN_FILE = DYI_Main
 
 PDFLATEX = pdflatex
-PSTOPDF = ps2pdf
 
 MACRO_GENERATOR = ./gen_Current_Macros.py
 MACRO_INPUTES = gen_config.py           \
                 gen_events.py
-CHARTS_GENERATOR = ./gen_charts.py
 
 FILES_TEX = DYI_Main.tex                \
             DYI_Year_Calendar.tex       \
             DYI_Monthly_Planner.tex     \
-            DYI_Weekly_Planner.tex
+            DYI_Weekly_Planner.tex      \
+            ascii.tex
 
 # generated files
 FILES_TEX_GEN = DYI_i18n.tex                   \
                 DYI_Month_Tables.tex           \
                 DYI_Monthly_Planner_Tables.tex \
                 DYI_Weekly_Planner_Tables.tex
-
-CHARTS_TEX_GEN = ascii.tex \
-				 hex.tex
 
 GNUPLOT_INPUT = 52wks.gnuplot daily.gnuplot
 GNUPLOT_TEX = 52wks.tex \
@@ -35,11 +31,8 @@ GNUPLOT_OUTPUT = 52wks.pdf \
 				 daily-eps-converted-to.pdf
 GNUPLOT = gnuplot -c
 
-DEFAULT: $(FILES_TEX) $(FILES_TEX_GEN) $(GNUPLOT_TEX) $(GNUPLOT_OUTPUT) $(CHARTS_TEX_GEN)
+DEFAULT: $(FILES_TEX) $(FILES_TEX_GEN) $(GNUPLOT_TEX) $(GNUPLOT_OUTPUT)
 	$(PDFLATEX) $(MAIN_FILE)
-
-$(CHARTS_TEX_GEN): $(CHARTS_GENERATOR)
-	$(CHARTS_GENERATOR)
 
 $(FILES_TEX_GEN): $(MACRO_GENERATOR) $(MACRO_INPUTES)
 	$(MACRO_GENERATOR)

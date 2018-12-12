@@ -1,34 +1,60 @@
+%\documentclass{article}
+%\usepackage{siunitx}
+%\usepackage[sfdefault]{roboto}
+%\usepackage[T1]{fontenc}
+%\usepackage{pifont}
+%\usepackage{rotating}
+%\begin{document}
 
-\newcolumntype{C}{>{\centering\arraybackslash}p{2.5em}}
 
 \begin{table}[tbp]
   \centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{ l C C C C C C C  } &  &  &  &  &  &  &  \\
- &  &  &  &  &  &  &  \\
-\ding{165} &  & \textcolor{gray}{2} & \textcolor{gray}{3} & \textcolor{gray}{4} & \textcolor{gray}{5} & \textcolor{gray}{6} & \textcolor{gray}{7} \\
+\begin{sideways}
+%\resizebox{\textwidth}{!}{
+%\tiny
+\newcolumntype{R}{>{\ttfamily}r}
+\begin{tabular}{ R @{\hskip 4pt}R @{\hskip 10pt}l @{\hskip 4pt}| @{\hskip 4pt}R @{\hskip 4pt}R @{\hskip 10pt}l @{\hskip 4pt}| @{\hskip 4pt}R @{\hskip 4pt}R @{\hskip 10pt}l @{\hskip 4pt}| @{\hskip 4pt}R @{\hskip 4pt}R @{\hskip 10pt}l }
+Dec & Hex & \ttfamily Char                        & Dec & Hex & \ttfamily Char & Dec & Hex & \ttfamily Char & Dec & Hex & \ttfamily Char \\
 \hline
-\ding{116} & \textcolor{gray}{0} & \textvisiblespace & 0 & @ & P & ` & p \\
- & \textcolor{gray}{1} & ! & 1 & A & Q & a & q \\
- & \textcolor{gray}{2} & " & 2 & B & R & b & r \\
- & \textcolor{gray}{3} & \# & 3 & C & S & c & s \\
- & \textcolor{gray}{4} & \$ & 4 & D & T & d & t \\
- & \textcolor{gray}{5} & \% & 5 & E & U & e & u \\
- & \textcolor{gray}{6} & \& & 6 & F & V & f & v \\
- & \textcolor{gray}{7} & ' & 7 & G & W & g & w \\
- & \textcolor{gray}{8} & ( & 8 & H & X & h & x \\
- & \textcolor{gray}{9} & ) & 9 & I & Y & i & y \\
- & \textcolor{gray}{a} & * & : & J & Z & j & z \\
- & \textcolor{gray}{b} & + & ; & K & [ & k & \{ \\
- & \textcolor{gray}{c} & , & < & L & \textbackslash & l & | \\
- & \textcolor{gray}{d} & - & = & M & ] & m & \} \\
- & \textcolor{gray}{e} & . & > & N & \textasciicircum & n & \textasciitilde \\
- & \textcolor{gray}{f} & / & ? & O & \_ & o & del \\
- &  &  &  &  &  &  &  \\
+0  &  0 & NUL (null)                    & 32 & 20 & Space  & 64 & 40 & @ & 96  & 60 & ` \\
+1  &  1 & SOH (start of heading)        & 33 & 21 & !      & 65 & 41 & A & 97  & 61 & a \\
+2  &  2 & STX (start of text)           & 34 & 22 & "      & 66 & 42 & B & 98  & 62 & b \\
+3  &  3 & ETX (end of text)             & 35 & 23 & \#     & 67 & 43 & C & 99  & 63 & c \\
+4  &  4 & EOT (end of transmission)     & 36 & 24 & \$     & 68 & 44 & D & 100 & 64 & d \\
+5  &  5 & ENQ (enquiry)                 & 37 & 25 & \%     & 69 & 45 & E & 101 & 65 & e \\
+6  &  6 & ACK (acknowledge)             & 38 & 26 & \&     & 70 & 46 & F & 102 & 66 & f \\
+7  &  7 & BEL (bell)                    & 39 & 27 & '      & 71 & 47 & G & 103 & 67 & g \\
+8  &  8 & BS (backspace)                & 40 & 28 & (      & 72 & 48 & H & 104 & 68 & h \\
+9  &  9 & TAB (horizontal tab)          & 41 & 29 & )      & 73 & 49 & I & 105 & 69 & i \\
+10 &  A & LF (line feed)                & 42 & 2A & *      & 74 & 4A & J & 106 & 6A & j \\
+11 &  B & VT (vertical tab)             & 43 & 2B & +      & 75 & 4B & K & 107 & 6B & k \\
+12 &  C & FF (form feed)                & 44 & 2C & ,      & 76 & 4C & L & 108 & 6C & l \\
+13 &  D & CR (carriage return)          & 45 & 2D & -      & 77 & 4D & M & 109 & 6D & m \\
+14 &  E & SO (shift out)                & 46 & 2E & .      & 78 & 4E & N & 110 & 6E & n \\
+15 &  F & SI (shift in)                 & 47 & 2F & /      & 79 & 4F & O & 111 & 6F & o \\
+16 & 10 & DLE (data link escape)        & 48 & 30 & 0      & 80 & 50 & P & 112 & 70 & p \\
+17 & 11 & DC1 (device control 1)        & 49 & 31 & 1      & 81 & 51 & Q & 113 & 71 & q \\
+18 & 12 & DC2 (device control 2)        & 50 & 32 & 2      & 82 & 52 & R & 114 & 72 & r \\
+19 & 13 & DC3 (device control 3)        & 51 & 33 & 3      & 83 & 53 & S & 115 & 73 & s \\
+20 & 14 & DC4 (device control 4)        & 52 & 34 & 4      & 84 & 54 & T & 116 & 74 & t \\
+21 & 15 & NAK (negative acknowledge)    & 53 & 35 & 5      & 85 & 55 & U & 117 & 75 & u \\
+22 & 16 & SYN (synchronous idle)        & 54 & 36 & 6      & 86 & 56 & V & 118 & 76 & v \\
+23 & 17 & ETB (end of trans. block)     & 55 & 37 & 7      & 87 & 57 & W & 119 & 77 & w \\
+24 & 18 & CAN (cancel)                  & 56 & 38 & 8      & 88 & 58 & X & 120 & 78 & x \\
+25 & 19 & EM (end of medium)            & 57 & 39 & 9      & 89 & 59 & Y & 121 & 79 & y \\
+26 & 1A & SUB (substitute)              & 58 & 3A & :      & 90 & 5A & Z & 122 & 7A & z \\
+27 & 1B & ESC (escape)                  & 59 & 3B & ;      & 91 & 5B & [ & 123 & 7B & \{ \\
+28 & 1C & FS (file separator)           & 60 & 3C & <      & 92 & 5C & \textbackslash & 124 & 7C & | \\
+29 & 1D & GS (group separator)          & 61 & 3D & =      & 93 & 5D & ] & 125 & 7D & \} \\
+30 & 1E & RS (record separator)         & 62 & 3E & >      & 94 & 5E & \textasciicircum & 126 & 7E & \textasciitilde \\
+31 & 1F & US (unit separator)           & 63 & 3F & ?      & 95 & 5F & \_ & 127 & 7F & DEL \\
 
   \end{tabular}
-  }
-  \caption[]{\tabular[t]{@{}l@{}}ASCII Printable Characters;\\ \ding{165} - 1st hex digit, \ding{116} - 2nd hex digit\endtabular}
-  %{ASCII Printable Characters; \ding{165} - 1st hex digit, \ding{116} - 2nd hex digit}
+%  }
+  \end{sideways}
+  \caption[]{\tabular[t]{@{}l@{}}ASCII Characters\endtabular}
   \label{tab:ascii}
 \end{table}
+
+
+%\end{document}
