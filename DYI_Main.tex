@@ -1,4 +1,4 @@
-\documentclass[a5paper,twoside]{article}
+\documentclass[twoside]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Packages
@@ -6,7 +6,7 @@
 \usepackage[utf8]{inputenc}
 
 % paper settings
-\usepackage{vmargin}
+\usepackage{geometry}
 
 % macro helpers
 \usepackage{xspace}
@@ -39,12 +39,15 @@
 % Document-wide settings
 
 %% paper: A5 is 148mm x 210mm
-\setpapersize[portrait]{A5}
-% Below is for lulu hardcover
-%\setpapersize{custom}{15.24cm}{22.86cm}
-
 % 18mm on binding -> text area = 120mm x 190mm
-\setmargnohfrb{18mm}{10mm}{10mm}{10mm}
+\geometry{a5paper}
+\geometry{portrait}
+\geometry{inner=18mm,outer=10mm,top=10mm,bottom=10mm}
+% Below is for lulu hardcover
+%\geometry{paperheight=22.86cm,paperwidth=15.24cm}
+
+% Don't show page numbers
+\pagestyle{empty}
 
 % Default font: Avantgarde
 %\usepackage{avant}
