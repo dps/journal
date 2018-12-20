@@ -1,14 +1,13 @@
-\vspace*{-1.5cm}\noindent\makebox[14.85cm][c]{\includegraphics[width=148mm,height=210mm]{./artwork/space}}
-\blankpage
-\vspace*{-1.5cm}
-\noindent
-\makebox[14.85cm][c]{\includegraphics[width=148mm,height=210mm]{./artwork/data_center}}
-\blankpage
-\vspace*{-1.5cm}
-\noindent
-\makebox[14.85cm][c]{\includegraphics[width=148mm,height=210mm]{./artwork/zengarden}}
-\blankpage
-\vspace*{-1.5cm}
-\noindent
-\makebox[14.85cm][c]{\includegraphics[width=148mm,height=210mm]{./artwork/london}}
-\blankpage
+% We don't want any outside margins for the color pages
+\newgeometry{inner=18mm,outer=0mm,top=0mm,bottom=0mm}
+
+\includegraphics[width=\textwidth,height=\textheight]{./artwork/space}
+\cleardoublepage
+\includegraphics[width=\textwidth,height=\textheight]{./artwork/data_center}
+\cleardoublepage
+\includegraphics[width=\textwidth,height=\textheight]{./artwork/zengarden}
+\cleardoublepage
+\includegraphics[width=\textwidth,height=\textheight]{./artwork/london}
+\cleardoublepage
+
+\restoregeometry
