@@ -1,5 +1,5 @@
 # action.yml
-name: 'Build Journal'
+name: 'build'
 description: 'Build Journal'
 outputs:
   time: # id of output
