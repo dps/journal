@@ -4,7 +4,7 @@ import locale
 import gen_events as events
 
 # Year to generate for
-year = 2019
+year = 2022
 
 # True if the week starts on Monday (European convention), False if it starts on Sunday.
 week_starts_on_Monday = True
