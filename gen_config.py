@@ -9,6 +9,11 @@ year = 2022
 # True if the week starts on Monday (European convention), False if it starts on Sunday.
 week_starts_on_Monday = True
 
+# What paper size should be output?
+paper_size = 'a5paper'
+# Use paper_size = 'paperheight=8.5in,paperwidth=5.5in' for half letter,
+# paper_size = 'paperheight=9in,paperwidth=6in' for lulu hardcover.
+
 # Locale -- uncomment one only, use utf-8 encoding ONLY
 #
 #locale.setlocale(locale.LC_ALL, 'en_AU.utf-8')      # Australia

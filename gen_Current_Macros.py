@@ -122,6 +122,15 @@ def write_out_i18n_macros(file):
         i18n_macros_FH.writelines('\\newcolumntype{G}{>{\\hfill\\bfseries\\tiny}p{\\WkdayColWidthMinicalMP}@{\\extracolsep\\fill}}\n')
 
 #--------------------------------------------------------------------
+# Generate & write out a config tex file for latex-specific configuration
+#
+# This just includes paper size at the moment
+
+def write_out_latex_config(file):
+    config_FH = open(file, 'w')
+    config_FH.writelines('\\geometry{' + cfg.paper_size + '}\n')
+
+#--------------------------------------------------------------------
 # generate one \MonthTbl<month_abbr> macro for the given month
 #
 # also \MonthTbl<month_abbr>Prev and \MonthTbl<month_abbr>Next
@@ -502,6 +511,7 @@ def write_out_WP_macros(year, file):
 # Main
 
 write_out_i18n_macros('DYI_i18n.tex')
+write_out_latex_config('DYI_config.tex')
 write_out_MonthTbl_macros(cfg.year, 'DYI_Month_Tables.tex')
 write_out_MP_macros(cfg.year, 'DYI_Monthly_Planner_Tables.tex')
 write_out_WP_macros(cfg.year, 'DYI_Weekly_Planner_Tables.tex')
